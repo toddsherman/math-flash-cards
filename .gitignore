@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+.env*
+!.env.example
+.DS_Store
+.audio-generation/
+*.log
+*.pem
+*.key
