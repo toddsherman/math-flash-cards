@@ -10,3 +10,6 @@ out/
 *.log
 *.pem
 *.key
+
+# Legacy local speech clips; published OpenAI clips live in a versioned subdirectory.
+/public/audio/*.mp3
