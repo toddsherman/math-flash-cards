@@ -54,3 +54,9 @@ Edit `RANGES` in `lib/numbers.ts` and add matching audio files. Written English 
 ## Deploy
 
 The app can be deployed to Vercel as a Next.js project. It serves under `/math`; adjust `basePath` and the audio URL prefix together if hosting at another path. No OpenAI key is needed in the deployed app.
+
+## Audio diagnostics
+
+Turn on **Diagnostics** under the gear, or open `/math?debugAudio=1`. The on-screen panel shows the latest event and an expandable, copyable log of the last 100 events: button triggers, audio-engine state, scheduled feedback playback, completion, interruption, speech buffering/failures, range changes, and swipes. The visibility preference is remembered locally. Logs remain in memory and in the browser console; they are never uploaded. Playback events confirm browser activity, not the phone's audible output or volume setting.
+
+The correct chime uses twice its previous sample amplitude (+6 dB), with headroom below clipping. Other sounds retain their existing levels.

@@ -1,3 +1,4 @@
+import { recordDiagnostic } from "./diagnostics";
 import buzzer from "./incorrect-sound.json";
 
 // Keep feedback in memory: no media-element seeking or file decoding on a tap.
@@ -6,10 +7,13 @@ export class FeedbackAudio {
   private buffers: AudioBuffer[];
   private source: AudioBufferSourceNode | null = null;
   private request = 0;
+  private soundLabel = "Feedback";
 
   constructor() {
     this.context = new AudioContext({ latencyHint: "interactive" });
     this.buffers = [this.makeBuzzerBuffer(), this.makeChimeBuffer()];
+    this.context.onstatechange = () => recordDiagnostic(`Audio engine: ${this.context.state}`);
+    recordDiagnostic(`Feedback buffers ready · audio engine ${this.context.state}`);
   }
 
   private makeBuzzerBuffer() {
@@ -31,7 +35,7 @@ export class FeedbackAudio {
         const age = t - start;
         if (age < 0 || age > .4) continue;
         const envelope = Math.min(age / .003, 1) * Math.exp(-age * 11) * Math.min((.4 - age) / .03, 1);
-        samples[i] += .23 * envelope * (Math.sin(2 * Math.PI * frequency * age) + .18 * Math.sin(4 * Math.PI * frequency * age));
+        samples[i] += .46 * envelope * (Math.sin(2 * Math.PI * frequency * age) + .18 * Math.sin(4 * Math.PI * frequency * age));
       }
     }
     return buffer;
@@ -40,17 +44,22 @@ export class FeedbackAudio {
   play(correct: boolean): Promise<void> {
     this.stop();
     const request = this.request;
+    const startedAt = performance.now();
+    const label = correct ? "Correct chime" : "Incorrect buzzer";
     const start = () => {
       if (request !== this.request || this.context.state === "closed") return;
       const source = this.context.createBufferSource();
       source.buffer = this.buffers[correct ? 1 : 0];
       source.connect(this.context.destination);
-      source.onended = () => { source.disconnect(); if (this.source === source) this.source = null; };
+      source.onended = () => { source.disconnect(); if (this.source === source) { this.source = null; recordDiagnostic(`${label}: finished`); } };
       this.source = source;
+      this.soundLabel = label;
       source.start();
+      recordDiagnostic(`${label}: started · engine ${this.context.state} · ${Math.round(performance.now() - startedAt)} ms to schedule`);
     };
     if (this.context.state === "running") { start(); return Promise.resolve(); }
     // resume is invoked directly from the user gesture, including the first tap.
+    recordDiagnostic(`${label}: waiting for audio engine (${this.context.state})`);
     return this.context.resume().then(start);
   }
 
@@ -63,9 +72,9 @@ export class FeedbackAudio {
 
   stop() {
     this.request++;
-    this.source?.stop();
+    if (this.source) { this.source.stop(); recordDiagnostic(`${this.soundLabel}: stopped`); }
     this.source = null;
   }
 
-  dispose() { this.stop(); void this.context.close(); }
+  dispose() { this.stop(); this.context.onstatechange = null; void this.context.close(); }
 }

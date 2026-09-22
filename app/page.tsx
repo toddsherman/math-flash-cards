@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type TouchEvent } from "react";
+import { recordDiagnostic, subscribeDiagnostics, diagnosticsText, type DiagnosticEntry } from "@/lib/diagnostics";
 import { FeedbackAudio } from "@/lib/feedback-audio";
 import { DEFAULT_RANGE, RANGES, numberWord, shuffled } from "@/lib/numbers";
 
 // Opt-in, local-only diagnostics: /math?debugSwipe=1, then window.__mathSwipeLog.
 function logSwipe(event: string, details: Record<string, number | string>) {
+  recordDiagnostic(`Swipe ${event}: ${JSON.stringify(details)}`);
   if (!new URLSearchParams(window.location.search).has("debugSwipe")) return;
   const debugWindow = window as Window & { __mathSwipeLog?: Record<string, unknown>[] };
   const entries = debugWindow.__mathSwipeLog ??= [];
@@ -51,6 +53,27 @@ export default function MathPractice() {
   const feedbackAudio = useRef<FeedbackAudio | null>(null);
   const feedbackPressed = useRef(false);
   const playback = useRef(0);
+  const [showDiagnostics, setShowDiagnostics] = useState(false);
+  const [diagnostics, setDiagnostics] = useState<DiagnosticEntry[]>([]);
+  const [copyStatus, setCopyStatus] = useState("");
+
+  useEffect(() => {
+    let enabled = new URLSearchParams(window.location.search).has("debugAudio");
+    try { enabled ||= localStorage.getItem("math-diagnostics") === "true"; } catch {}
+    setShowDiagnostics(enabled);
+    return subscribeDiagnostics(setDiagnostics);
+  }, []);
+
+  function toggleDiagnostics() {
+    const enabled = !showDiagnostics;
+    setShowDiagnostics(enabled);
+    try { localStorage.setItem("math-diagnostics", String(enabled)); } catch {}
+  }
+
+  async function copyDiagnostics() {
+    try { await navigator.clipboard.writeText(diagnosticsText()); setCopyStatus("Copied"); }
+    catch { setCopyStatus("Could not copy. Select the visible log instead."); }
+  }
 
   const current = cards.deck[cards.index];
   const word = current === undefined ? "" : numberWord(current);
@@ -82,12 +105,13 @@ export default function MathPractice() {
   }, []);
 
   function playFeedback(correct: boolean) {
+    recordDiagnostic(`${correct ? "Correct" : "Incorrect"} button triggered · number ${cardsRef.current.deck[cardsRef.current.index]}`);
     stopAudio();
     setError("");
     const request = playback.current;
     const player = feedbackAudio.current ??= new FeedbackAudio();
     void player.play(correct).catch(() => {
-      if (request === playback.current) setError("Feedback sound could not play. Tap to retry.");
+      if (request === playback.current) { recordDiagnostic("Feedback playback failed"); setError("Feedback sound could not play. Tap to retry."); }
     });
   }
 
@@ -106,6 +130,7 @@ export default function MathPractice() {
   function pronounce() {
     const player = audio.current;
     if (!player || current === undefined) return;
+    recordDiagnostic(`Speaker button triggered · number ${current} · readyState ${player.readyState}`);
     stopAudio();
     setError("");
     const request = playback.current;
@@ -115,6 +140,7 @@ export default function MathPractice() {
     void player.play().catch(() => {
       if (request !== playback.current) return;
       setSpeaking(false);
+      recordDiagnostic("Number playback failed");
       setError("Audio could not play. Check your volume and tap to retry.");
     });
   }
@@ -229,6 +255,7 @@ export default function MathPractice() {
     gesture.current = null; targetPage.current = null;
     if (settling.current) clearTimeout(settling.current);
     rangeRef.current = range;
+    recordDiagnostic(`Range selected: ${range.label}`);
     setRangeId(id);
     const first = nextBatch(range.numbers);
     const before = nextBatch(range.numbers, first[0], true);
@@ -266,6 +293,7 @@ export default function MathPractice() {
               <span>{range.label}{range.description && <small>{range.description}</small>}</span><span aria-hidden="true">{rangeId === range.id ? "✓" : ""}</span>
             </button>)}
           </div>
+          <button className="diagnostics-toggle" role="switch" aria-checked={showDiagnostics} onClick={toggleDiagnostics}>Diagnostics {showDiagnostics ? "on" : "off"}</button>
           <p className="voice-credit">AI-generated voice · OpenAI Marin</p>
         </dialog>
         <div ref={feed} className="card-feed" aria-label="Swipe through numbers"
@@ -299,10 +327,20 @@ export default function MathPractice() {
             </section>;
           }) : <section className="flashcard" aria-hidden="true" />}
         </div>
+        {showDiagnostics && <aside className="diagnostics-panel" aria-label="Audio diagnostics">
+          <strong>Diagnostics</strong>
+          <p role="status">{diagnostics.at(-1)?.message ?? "Ready — press a sound button"}</p>
+          <details><summary>Event log ({diagnostics.length})</summary>
+            <p className="diagnostics-note">Local log only. Playback events confirm browser activity, not device volume or audibility.</p>
+            <pre>{diagnostics.map(entry => `${entry.time} ${entry.message}`).join("\n")}</pre>
+            <button onClick={copyDiagnostics}>Copy log</button><span role="status">{copyStatus}</span>
+          </details>
+        </aside>}
         <span className="sr-only" aria-live="polite" aria-atomic="true">{word}</span>
         <audio ref={audio} src={current === undefined ? undefined : `/math/audio/openai-marin-eea49933a200/${current}.mp3`} preload="auto"
-          onPlaying={() => setSpeaking(true)} onEnded={() => setSpeaking(false)} onPause={() => setSpeaking(false)}
-          onError={() => { setSpeaking(false); setError("Audio could not load. Tap to retry."); }} />
+          onPlaying={() => { setSpeaking(true); recordDiagnostic(`Number ${current}: playing`); }} onEnded={() => { setSpeaking(false); recordDiagnostic(`Number ${current}: finished`); }} onPause={() => { setSpeaking(false); recordDiagnostic("Number audio: paused"); }}
+          onWaiting={() => recordDiagnostic("Number audio: buffering")}
+          onError={() => { setSpeaking(false); recordDiagnostic(`Number audio: load failed (code ${audio.current?.error?.code ?? "unknown"})`); setError("Audio could not load. Tap to retry."); }} />
         <span className="sr-only" role="status">{error}</span>
         <nav className="sr-only" aria-label="Flashcard navigation"><button onClick={() => move(-1)} tabIndex={-1}>Previous number</button><button onClick={() => move(1)} tabIndex={-1}>Next number</button></nav>
     </main>;
