@@ -289,11 +289,11 @@ export default function MathPractice() {
                 <button className="feedback correct" aria-label="Correct" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, true)} onClick={event => feedbackClick(event, true)}>
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
                 </button>
-                <button className={`hear ${active && speaking ? "speaking" : ""} ${active && error ? "audio-failed" : ""}`}
-                  aria-label={active && error ? error : `Hear ${numberWord(value)}`} tabIndex={active ? 0 : -1} onClick={pronounce}><SpeakerIcon/></button>
                 <button className="feedback incorrect" aria-label="Incorrect" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, false)} onClick={event => feedbackClick(event, false)}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
                 </button>
+                <button className={`hear ${active && speaking ? "speaking" : ""} ${active && error ? "audio-failed" : ""}`}
+                  aria-label={active && error ? error : `Hear ${numberWord(value)}`} tabIndex={active ? 0 : -1} onClick={pronounce}><SpeakerIcon/></button>
                 </div>
               </div>
             </section>;
