@@ -12,7 +12,7 @@ An ultra-minimal, iPhone-friendly number practice app built for a five-year-old.
 - Full-screen vertical swiping moves the number, name, and speaker together. Swipe up for the next card and down for the previous one.
 - Short deliberate swipes advance; tiny nudges settle back. Three neighboring cards remain mounted to keep the deck endless without growing the DOM.
 - 101 bundled audio clips, generated with OpenAI's `gpt-4o-mini-tts` model and Marin voice. Playback requires no API key and makes no request to OpenAI.
-- A check button to the left of the speaker plays a cheerful chime; an X on the right plays a short, gentle buzzer. Feedback keeps the current card in place. The original effects are bundled WAV files, reproducible with `python3 scripts/generate-feedback.py`.
+- A check button to the left of the speaker plays a cheerful chime; an X on the right plays a short, sharp buzzer. Feedback keeps the current card in place. Feedback starts on press using prebuilt Web Audio buffers, avoiding file decoding and media seeking on each tap. The sound definitions live in `lib/feedback-audio.ts`; the bundled WAV files and Python generator preserve the original sound design.
 - Keyboard navigation, screen-reader labels, and reduced-motion support.
 
 ## Run locally
