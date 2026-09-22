@@ -1,3 +1,5 @@
+import buzzer from "./incorrect-sound.json";
+
 // Keep feedback in memory: no media-element seeking or file decoding on a tap.
 export class FeedbackAudio {
   private context: AudioContext;
@@ -7,27 +9,29 @@ export class FeedbackAudio {
 
   constructor() {
     this.context = new AudioContext({ latencyHint: "interactive" });
-    this.buffers = [this.makeBuffer(false), this.makeBuffer(true)];
+    this.buffers = [this.makeBuzzerBuffer(), this.makeChimeBuffer()];
   }
 
-  private makeBuffer(correct: boolean) {
+  private makeBuzzerBuffer() {
+    const bytes = Uint8Array.from(atob(buzzer.pcm16Base64), character => character.charCodeAt(0));
+    const pcm = new DataView(bytes.buffer);
+    const buffer = this.context.createBuffer(1, bytes.length / 2, buzzer.sampleRate);
+    const samples = buffer.getChannelData(0);
+    for (let i = 0; i < samples.length; i++) samples[i] = pcm.getInt16(i * 2, true) / 32768;
+    return buffer;
+  }
+
+  private makeChimeBuffer() {
     const rate = this.context.sampleRate;
-    const buffer = this.context.createBuffer(1, Math.ceil(rate * (correct ? .66 : .32)), rate);
+    const buffer = this.context.createBuffer(1, Math.ceil(rate * .66), rate);
     const samples = buffer.getChannelData(0);
     for (let i = 0; i < samples.length; i++) {
       const t = i / rate;
-      if (correct) {
-        for (const [start, frequency] of [[0, 523.25], [.11, 659.25], [.22, 783.99]]) {
-          const age = t - start;
-          if (age < 0 || age > .4) continue;
-          const envelope = Math.min(age / .003, 1) * Math.exp(-age * 11) * Math.min((.4 - age) / .03, 1);
-          samples[i] += .23 * envelope * (Math.sin(2 * Math.PI * frequency * age) + .18 * Math.sin(4 * Math.PI * frequency * age));
-        }
-      } else {
-        // A rough, dissonant square-wave buzz with a fast attack and short tail.
-        const envelope = Math.min(t / .003, 1, Math.max(0, (.32 - t) / .025));
-        const square = (frequency: number) => Math.tanh(5 * Math.sin(2 * Math.PI * frequency * t));
-        samples[i] = .23 * envelope * (square(155) + .55 * square(207));
+      for (const [start, frequency] of [[0, 523.25], [.11, 659.25], [.22, 783.99]]) {
+        const age = t - start;
+        if (age < 0 || age > .4) continue;
+        const envelope = Math.min(age / .003, 1) * Math.exp(-age * 11) * Math.min((.4 - age) / .03, 1);
+        samples[i] += .23 * envelope * (Math.sin(2 * Math.PI * frequency * age) + .18 * Math.sin(4 * Math.PI * frequency * age));
       }
     }
     return buffer;
