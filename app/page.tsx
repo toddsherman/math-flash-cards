@@ -47,6 +47,8 @@ export default function MathPractice() {
   const [speaking, setSpeaking] = useState(false);
   const [error, setError] = useState("");
   const audio = useRef<HTMLAudioElement | null>(null);
+  const correctAudio = useRef<HTMLAudioElement | null>(null);
+  const incorrectAudio = useRef<HTMLAudioElement | null>(null);
   const playback = useRef(0);
 
   const current = cards.deck[cards.index];
@@ -67,12 +69,30 @@ export default function MathPractice() {
   function stopAudio() {
     playback.current += 1;
     audio.current?.pause();
+    correctAudio.current?.pause();
+    incorrectAudio.current?.pause();
     setSpeaking(false);
   }
   useEffect(() => {
     const player = audio.current;
-    return () => { playback.current += 1; player?.pause(); if (settling.current) clearTimeout(settling.current); };
+    const correctPlayer = correctAudio.current;
+    const incorrectPlayer = incorrectAudio.current;
+    return () => { playback.current += 1; player?.pause(); correctPlayer?.pause(); incorrectPlayer?.pause(); if (settling.current) clearTimeout(settling.current); };
   }, []);
+
+  function playFeedback(correct: boolean) {
+    const player = correct ? correctAudio.current : incorrectAudio.current;
+    if (!player) return;
+    stopAudio();
+    setError("");
+    const request = playback.current;
+    if (player.error) player.load();
+    player.currentTime = 0;
+    // Start in the tap handler so iPhone playback remains user-authorized.
+    void player.play().catch(() => {
+      if (request === playback.current) setError("Feedback sound could not play. Tap to retry.");
+    });
+  }
 
   function pronounce() {
     const player = audio.current;
@@ -248,8 +268,16 @@ export default function MathPractice() {
             return <section className="flashcard" key={`${rangeId}-${position}`} aria-hidden={!active} inert={!active}>
               <div className="card-face">
                 <div className="number-wrap"><h2 className="number">{value}</h2><span className="number-word">{numberWord(value)}</span></div>
+                <div className="card-actions">
+                <button className="feedback correct" aria-label="Correct" tabIndex={active ? 0 : -1} onClick={() => playFeedback(true)}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
+                </button>
                 <button className={`hear ${active && speaking ? "speaking" : ""} ${active && error ? "audio-failed" : ""}`}
                   aria-label={active && error ? error : `Hear ${numberWord(value)}`} tabIndex={active ? 0 : -1} onClick={pronounce}><SpeakerIcon/></button>
+                <button className="feedback incorrect" aria-label="Incorrect" tabIndex={active ? 0 : -1} onClick={() => playFeedback(false)}>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+                </button>
+                </div>
               </div>
             </section>;
           }) : <section className="flashcard" aria-hidden="true" />}
@@ -258,6 +286,8 @@ export default function MathPractice() {
         <audio ref={audio} src={current === undefined ? undefined : `/math/audio/openai-marin-eea49933a200/${current}.mp3`} preload="auto"
           onPlaying={() => setSpeaking(true)} onEnded={() => setSpeaking(false)} onPause={() => setSpeaking(false)}
           onError={() => { setSpeaking(false); setError("Audio could not load. Tap to retry."); }} />
+        <audio ref={correctAudio} src="/math/audio/feedback/correct.wav" preload="auto" />
+        <audio ref={incorrectAudio} src="/math/audio/feedback/incorrect.wav" preload="auto" />
         <span className="sr-only" role="status">{error}</span>
         <nav className="sr-only" aria-label="Flashcard navigation"><button onClick={() => move(-1)} tabIndex={-1}>Previous number</button><button onClick={() => move(1)} tabIndex={-1}>Next number</button></nav>
     </main>;

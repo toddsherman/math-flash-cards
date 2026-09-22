@@ -7,6 +7,7 @@ export const RANGES = [
   { id: "10-100", label: "10–100", numbers: Array.from({ length: 91 }, (_, i) => i + 10) },
   { id: "fives", label: "5–100 (by 5s)", description: "5, 10, 15 … 100", numbers: Array.from({ length: 20 }, (_, i) => (i + 1) * 5) },
   { id: "tens", label: "Only 10s", description: "10, 20, 30 … 100", numbers: Array.from({ length: 10 }, (_, i) => (i + 1) * 10) },
+  { id: "teens-and-tens", label: "Teens & tens", description: "13, 30, 14, 40 … 19, 90", numbers: [13, 30, 14, 40, 15, 50, 16, 60, 17, 70, 18, 80, 19, 90] },
 ];
 export const DEFAULT_RANGE = RANGES.find(range => range.id === "10-20")!;
 

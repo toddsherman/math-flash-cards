@@ -9,7 +9,13 @@ body { color: var(--ink); font-family: Arial, Helvetica, sans-serif; -webkit-fon
 .card-face { width: 100%; text-align: center; }
 .number { margin: 0; font-size: clamp(130px, 42vw, 250px); font-weight: 600; line-height: 1; letter-spacing: -.065em; padding-right: .065em; font-variant-numeric: tabular-nums; }
 .number-word { display: block; margin-top: 20px; font-family: inherit; font-size: clamp(30px, 8vw, 46px); line-height: 1.2; color: #647553; }
-.hear { display: grid; place-items: center; width: 80px; height: 80px; margin: 48px auto 0; padding: 0; border: 0; border-radius: 50%; background: var(--green); color: white; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: transform .15s, background .15s; }
+.card-actions { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 48px; }
+.feedback { display: grid; place-items: center; width: 60px; height: 60px; padding: 0; border: 1px solid currentColor; border-radius: 50%; background: transparent; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: transform .15s, background .15s; }
+.feedback.correct { color: var(--green); }
+.feedback.incorrect { color: #956843; }
+.feedback:active { transform: scale(.94); background: #ffffff50; }
+.feedback:focus-visible { outline: 3px solid var(--ink); outline-offset: 6px; }
+.hear { display: grid; place-items: center; width: 80px; height: 80px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: var(--green); color: white; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: transform .15s, background .15s; }
 .hear svg { width: 30px; height: 30px; }
 .hear:active { transform: scale(.94); }
 .hear:focus-visible { outline: 3px solid var(--ink); outline-offset: 6px; }
@@ -20,7 +26,7 @@ body { color: var(--ink); font-family: Arial, Helvetica, sans-serif; -webkit-fon
 audio { display: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 @keyframes pulse { to { opacity: .5; } }
-@media (max-height: 500px) { .number { font-size: 120px; } .number-word { margin-top: 10px; font-size: 28px; } .hear { margin-top: 22px; width: 64px; height: 64px; } }
+@media (max-height: 500px) { .number { font-size: 120px; } .number-word { margin-top: 10px; font-size: 28px; } .card-actions { margin-top: 22px; } .hear { width: 64px; height: 64px; } .feedback { width: 52px; height: 52px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
 .settings-toggle { position: fixed; z-index: 2; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: #647553; border-radius: 50%; cursor: pointer; touch-action: manipulation; }

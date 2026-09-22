@@ -6,12 +6,13 @@ An ultra-minimal, iPhone-friendly number practice app built for a five-year-old.
 
 ## Features
 
-- Eight ranges: 0–10, 10–20 (default), 10–30, 20–30, 0–100, 10–100, 5–100 by fives, and 10–100 by tens.
+- Nine ranges: 0–10, 10–20 (default), 10–30, 20–30, 0–100, 10–100, 5–100 by fives, 10–100 by tens, and Teens & tens (13/30 through 19/90).
 - Remembers the selected range on the device.
 - Shuffled batches include every number once, with no repeated number at the batch boundary.
 - Full-screen vertical swiping moves the number, name, and speaker together. Swipe up for the next card and down for the previous one.
 - Short deliberate swipes advance; tiny nudges settle back. Three neighboring cards remain mounted to keep the deck endless without growing the DOM.
 - 101 bundled audio clips, generated with OpenAI's `gpt-4o-mini-tts` model and Marin voice. Playback requires no API key and makes no request to OpenAI.
+- A check button to the left of the speaker plays a cheerful chime; an X on the right plays a short, gentle buzzer. Feedback keeps the current card in place. The original effects are bundled WAV files, reproducible with `python3 scripts/generate-feedback.py`.
 - Keyboard navigation, screen-reader labels, and reduced-motion support.
 
 ## Run locally
