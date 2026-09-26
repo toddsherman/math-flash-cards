@@ -21,9 +21,10 @@ function SpeakerIcon() {
   return <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m11 4-6 5H2v6h3l6 5V4Z"/><path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>;
 }
 
-// New batches include every number, with no repeated number at the join.
-function nextBatch(numbers: number[], neighbor?: number, prepend = false) {
-  const batch = shuffled(numbers);
+// Ordered practice keeps confusing groups together; other ranges shuffle without repeats at the join.
+function nextBatch(range: { numbers: number[]; ordered?: boolean }, neighbor?: number, prepend = false) {
+  if (range.ordered) return [...range.numbers];
+  const batch = shuffled(range.numbers);
   const edge = prepend ? batch.length - 1 : 0;
   if (batch.length > 1 && batch[edge] === neighbor) {
     // Choose uniformly among the other positions when avoiding a repeat.
@@ -83,8 +84,8 @@ export default function MathPractice() {
     try { range = RANGES.find(r => r.id === localStorage.getItem("math-number-range")) ?? range; } catch {}
     rangeRef.current = range;
     setRangeId(range.id);
-    const first = nextBatch(range.numbers);
-    const before = nextBatch(range.numbers, first[0], true);
+    const first = nextBatch(range);
+    const before = nextBatch(range, first[0], true);
     const initial = { deck: [...before, ...first], index: before.length };
     cardsRef.current = initial;
     setCards(initial);
@@ -150,9 +151,9 @@ export default function MathPractice() {
     stopAudio(); setError("");
     let deck = previous.deck;
     let index = previous.index + step;
-    if (index >= deck.length - 1) deck = [...deck, ...nextBatch(rangeRef.current.numbers, deck[deck.length - 1])];
+    if (index >= deck.length - 1) deck = [...deck, ...nextBatch(rangeRef.current, deck[deck.length - 1])];
     if (index < 1) {
-      const batch = nextBatch(rangeRef.current.numbers, deck[0], true);
+      const batch = nextBatch(rangeRef.current, deck[0], true);
       deck = [...batch, ...deck];
       index += batch.length;
     }
@@ -257,8 +258,8 @@ export default function MathPractice() {
     rangeRef.current = range;
     recordDiagnostic(`Range selected: ${range.label}`);
     setRangeId(id);
-    const first = nextBatch(range.numbers);
-    const before = nextBatch(range.numbers, first[0], true);
+    const first = nextBatch(range);
+    const before = nextBatch(range, first[0], true);
     const next = { deck: [...before, ...first], index: before.length };
     cardsRef.current = next; setCards(next);
     try { localStorage.setItem("math-number-range", id); } catch {}
