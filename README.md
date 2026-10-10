@@ -63,7 +63,7 @@ The correct cheer retains the source volume before its final half-second fade. O
 
 ### Audio recovery
 
-Sound controls capture touch gestures so small finger movements do not scroll the card or cancel playback. Swipe on the rest of the card. Warm feedback starts on press; cold or interrupted feedback starts on click to preserve mobile user activation.
+Sound controls capture touch gestures so small finger movements do not scroll the card or cancel playback. Swipe on the rest of the card. Warm feedback starts on press; cold or interrupted feedback starts on release to preserve mobile user activation.
 
 Where supported, the Audio Session API selects media playback for consistent voice and feedback behavior in iPhone silent mode. Background/foreground transitions stop pending playback and mark the engine for replacement on the next tap. Feedback detects a stalled resume (1.8 seconds) or frozen audio clock (1.2 seconds), reports a retry message, and rebuilds on the next tap. Number playback detects four seconds without progress and reloads on retry. Old requests are cancelled so a delayed resume cannot play a stale sound.
 

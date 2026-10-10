@@ -53,6 +53,8 @@ export default function MathPractice() {
   const audio = useRef<HTMLAudioElement | null>(null);
   const feedbackAudio = useRef<FeedbackAudio | null>(null);
   const feedbackPressed = useRef(false);
+  const speakerPressed = useRef(false);
+  const buttonTouch = useRef<{ x: number; y: number } | null>(null);
   const playback = useRef(0);
   const speechMonitor = useRef<ReturnType<typeof setInterval> | null>(null);
   const reloadSpeech = useRef(false);
@@ -139,9 +141,19 @@ export default function MathPractice() {
 
   function feedbackPointerDown(event: React.PointerEvent<HTMLButtonElement>, correct: boolean) {
     if (!event.isPrimary || event.button !== 0) return;
-    // Cold/interrupted engines must start on click, after touch activation.
+    buttonTouch.current = { x: event.clientX, y: event.clientY };
+    // Cold/interrupted engines start on pointer-up, after touch activation.
     feedbackPressed.current = feedbackAudio.current?.ready ?? false;
     if (feedbackPressed.current) playFeedback(correct);
+  }
+
+  function soundPointerUp(event: React.PointerEvent<HTMLButtonElement>, correct?: boolean) {
+    const start = buttonTouch.current;
+    buttonTouch.current = null;
+    if (!start || !event.isPrimary || Math.hypot(event.clientX - start.x, event.clientY - start.y) > 24) return;
+    // Browsers can suppress click after a small drag even with scrolling disabled.
+    if (correct === undefined) { speakerPressed.current = true; pronounce(); }
+    else if (!feedbackPressed.current) { feedbackPressed.current = true; playFeedback(correct); }
   }
 
   function feedbackClick(event: React.MouseEvent<HTMLButtonElement>, correct: boolean) {
@@ -355,14 +367,18 @@ export default function MathPractice() {
               <div className="card-face">
                 <div className="number-wrap"><h2 className="number">{value}</h2><span className="number-word">{numberWord(value)}</span></div>
                 <div className="card-actions">
-                <button className="feedback correct" aria-label="Correct" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, true)} onPointerCancel={() => { feedbackPressed.current = false; }} onClick={event => feedbackClick(event, true)}>
+                <button className="feedback correct" aria-label="Correct" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, true)} onPointerUp={event => soundPointerUp(event, true)} onPointerCancel={() => { feedbackPressed.current = false; buttonTouch.current = null; }} onClick={event => feedbackClick(event, true)}>
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
                 </button>
-                <button className="feedback incorrect" aria-label="Incorrect" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, false)} onPointerCancel={() => { feedbackPressed.current = false; }} onClick={event => feedbackClick(event, false)}>
+                <button className="feedback incorrect" aria-label="Incorrect" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, false)} onPointerUp={event => soundPointerUp(event, false)} onPointerCancel={() => { feedbackPressed.current = false; buttonTouch.current = null; }} onClick={event => feedbackClick(event, false)}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
                 </button>
                 <button className={`hear ${active && speaking ? "speaking" : ""} ${active && error ? "audio-failed" : ""}`}
-                  aria-label={active && error ? error : `Hear ${numberWord(value)}`} tabIndex={active ? 0 : -1} onClick={pronounce}><SpeakerIcon/></button>
+                  aria-label={active && error ? error : `Hear ${numberWord(value)}`} tabIndex={active ? 0 : -1}
+                  onPointerDown={event => { if (event.isPrimary && event.button === 0) { speakerPressed.current = false; buttonTouch.current = { x: event.clientX, y: event.clientY }; } }}
+                  onPointerUp={event => soundPointerUp(event)}
+                  onPointerCancel={() => { speakerPressed.current = false; buttonTouch.current = null; }}
+                  onClick={event => { if (event.detail === 0 || !speakerPressed.current) pronounce(); speakerPressed.current = false; }}><SpeakerIcon/></button>
                 </div>
               </div>
             </section>;
