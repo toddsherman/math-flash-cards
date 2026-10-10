@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type TouchEvent } from "react";
 import { recordDiagnostic, subscribeDiagnostics, diagnosticsText, type DiagnosticEntry } from "@/lib/diagnostics";
-import { FeedbackAudio } from "@/lib/feedback-audio";
+import { FeedbackAudio, configureAudioSession } from "@/lib/feedback-audio";
 import { DEFAULT_RANGE, RANGES, numberWord, shuffled } from "@/lib/numbers";
 
 // Opt-in, local-only diagnostics: /math?debugSwipe=1, then window.__mathSwipeLog.
@@ -54,6 +54,8 @@ export default function MathPractice() {
   const feedbackAudio = useRef<FeedbackAudio | null>(null);
   const feedbackPressed = useRef(false);
   const playback = useRef(0);
+  const speechMonitor = useRef<ReturnType<typeof setInterval> | null>(null);
+  const reloadSpeech = useRef(false);
   const [showDiagnostics, setShowDiagnostics] = useState(false);
   const [diagnostics, setDiagnostics] = useState<DiagnosticEntry[]>([]);
   const [copyStatus, setCopyStatus] = useState("");
@@ -93,6 +95,8 @@ export default function MathPractice() {
 
   function stopAudio() {
     playback.current += 1;
+    if (speechMonitor.current) clearInterval(speechMonitor.current);
+    speechMonitor.current = null;
     audio.current?.pause();
     feedbackAudio.current?.stop();
     setSpeaking(false);
@@ -100,9 +104,26 @@ export default function MathPractice() {
   useEffect(() => {
     const player = audio.current;
     // Prepare both sounds before a tap; the audio context stays suspended until a gesture.
+    configureAudioSession();
     const feedback = new FeedbackAudio();
     feedbackAudio.current = feedback;
-    return () => { playback.current += 1; player?.pause(); feedback.dispose(); feedbackAudio.current = null; if (settling.current) clearTimeout(settling.current); };
+    const lifecycle = (event: Event) => {
+      recordDiagnostic(`Page ${event.type} · ${document.visibilityState}`);
+      stopAudio();
+      feedback.invalidate();
+      reloadSpeech.current = true;
+      feedbackPressed.current = false;
+    };
+    document.addEventListener("visibilitychange", lifecycle);
+    window.addEventListener("pagehide", lifecycle);
+    window.addEventListener("pageshow", lifecycle);
+    return () => {
+      document.removeEventListener("visibilitychange", lifecycle);
+      window.removeEventListener("pagehide", lifecycle);
+      window.removeEventListener("pageshow", lifecycle);
+      stopAudio(); player?.pause(); feedback.dispose(); feedbackAudio.current = null;
+      if (settling.current) clearTimeout(settling.current);
+    };
   }, []);
 
   function playFeedback(correct: boolean) {
@@ -111,15 +132,16 @@ export default function MathPractice() {
     setError("");
     const request = playback.current;
     const player = feedbackAudio.current ??= new FeedbackAudio();
-    void player.play(correct).catch(() => {
-      if (request === playback.current) { recordDiagnostic("Feedback playback failed"); setError("Feedback sound could not play. Tap to retry."); }
+    void player.play(correct).catch(error => {
+      if (request === playback.current) { recordDiagnostic(`Feedback playback failed: ${String(error)}`); setError("Feedback sound could not play. Tap to retry."); }
     });
   }
 
   function feedbackPointerDown(event: React.PointerEvent<HTMLButtonElement>, correct: boolean) {
     if (!event.isPrimary || event.button !== 0) return;
-    feedbackPressed.current = true;
-    playFeedback(correct);
+    // Cold/interrupted engines must start on click, after touch activation.
+    feedbackPressed.current = feedbackAudio.current?.ready ?? false;
+    if (feedbackPressed.current) playFeedback(correct);
   }
 
   function feedbackClick(event: React.MouseEvent<HTMLButtonElement>, correct: boolean) {
@@ -135,15 +157,31 @@ export default function MathPractice() {
     stopAudio();
     setError("");
     const request = playback.current;
-    if (player.error) player.load();
-    player.currentTime = 0;
-    // Call play directly in the click handler, preserving iPhone tap authorization.
-    void player.play().catch(() => {
+    configureAudioSession();
+    const fail = (failure: unknown) => {
       if (request !== playback.current) return;
-      setSpeaking(false);
-      recordDiagnostic("Number playback failed");
-      setError("Audio could not play. Check your volume and tap to retry.");
-    });
+      recordDiagnostic(`Number playback failed: ${String(failure)} · readyState ${player.readyState} · networkState ${player.networkState}`);
+      stopAudio();
+      reloadSpeech.current = true;
+      setError("Audio could not play. Tap to retry.");
+    };
+    let position = 0;
+    let progressedAt = performance.now();
+    speechMonitor.current = setInterval(() => {
+      if (player.ended) {
+        if (speechMonitor.current) clearInterval(speechMonitor.current);
+        speechMonitor.current = null;
+        return;
+      }
+      if (player.currentTime > position) { position = player.currentTime; progressedAt = performance.now(); }
+      if (performance.now() - progressedAt > 4000) fail(new Error("Playback stalled"));
+    }, 250);
+    try {
+      if (player.error || reloadSpeech.current) { player.load(); reloadSpeech.current = false; }
+      player.currentTime = 0;
+      // Call play directly in the click handler, preserving iPhone tap authorization.
+      void player.play().catch(fail);
+    } catch (failure) { fail(failure); }
   }
   function advance(step: number) {
     const previous = cardsRef.current;
@@ -219,6 +257,7 @@ export default function MathPractice() {
   function move(step: number) { scrollToPage(step > 0 ? 2 : 0); }
 
   function startTouch(event: TouchEvent<HTMLDivElement>) {
+    if ((event.target as Element).closest(".card-actions")) return;
     touching.current = true;
     targetPage.current = null;
     if (settling.current) clearTimeout(settling.current);
@@ -229,6 +268,7 @@ export default function MathPractice() {
   }
 
   function endTouch(event: TouchEvent<HTMLDivElement>, cancelled = false) {
+    if ((event.target as Element).closest(".card-actions")) return;
     touching.current = event.touches.length > 0;
     const start = gesture.current;
     gesture.current = null;
@@ -315,10 +355,10 @@ export default function MathPractice() {
               <div className="card-face">
                 <div className="number-wrap"><h2 className="number">{value}</h2><span className="number-word">{numberWord(value)}</span></div>
                 <div className="card-actions">
-                <button className="feedback correct" aria-label="Correct" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, true)} onClick={event => feedbackClick(event, true)}>
+                <button className="feedback correct" aria-label="Correct" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, true)} onPointerCancel={() => { feedbackPressed.current = false; }} onClick={event => feedbackClick(event, true)}>
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
                 </button>
-                <button className="feedback incorrect" aria-label="Incorrect" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, false)} onClick={event => feedbackClick(event, false)}>
+                <button className="feedback incorrect" aria-label="Incorrect" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, false)} onPointerCancel={() => { feedbackPressed.current = false; }} onClick={event => feedbackClick(event, false)}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
                 </button>
                 <button className={`hear ${active && speaking ? "speaking" : ""} ${active && error ? "audio-failed" : ""}`}
@@ -342,7 +382,7 @@ export default function MathPractice() {
           onPlaying={() => { setSpeaking(true); recordDiagnostic(`Number ${current}: playing`); }} onEnded={() => { setSpeaking(false); recordDiagnostic(`Number ${current}: finished`); }} onPause={() => { setSpeaking(false); recordDiagnostic("Number audio: paused"); }}
           onWaiting={() => recordDiagnostic("Number audio: buffering")}
           onError={() => { setSpeaking(false); recordDiagnostic(`Number audio: load failed (code ${audio.current?.error?.code ?? "unknown"})`); setError("Audio could not load. Tap to retry."); }} />
-        <span className="sr-only" role="status">{error}</span>
+        {error && <p className="audio-error" role="status">{error}</p>}
         <nav className="sr-only" aria-label="Flashcard navigation"><button onClick={() => move(-1)} tabIndex={-1}>Previous number</button><button onClick={() => move(1)} tabIndex={-1}>Next number</button></nav>
     </main>;
 }

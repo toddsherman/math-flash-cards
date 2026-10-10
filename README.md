@@ -60,3 +60,11 @@ The app can be deployed to Vercel as a Next.js project. It serves under `/math`;
 Turn on **Diagnostics** under the gear, or open `/math?debugAudio=1`. The on-screen panel shows the latest event and an expandable, copyable log of the last 100 events: button triggers, audio-engine state, scheduled feedback playback, completion, interruption, speech buffering/failures, range changes, and swipes. The visibility preference is remembered locally. Logs remain in memory and in the browser console; they are never uploaded. Playback events confirm browser activity, not the phone's audible output or volume setting.
 
 The correct cheer retains the source volume before its final half-second fade. Other sounds retain their existing levels.
+
+### Audio recovery
+
+Sound controls capture touch gestures so small finger movements do not scroll the card or cancel playback. Swipe on the rest of the card. Warm feedback starts on press; cold or interrupted feedback starts on click to preserve mobile user activation.
+
+Where supported, the Audio Session API selects media playback for consistent voice and feedback behavior in iPhone silent mode. Background/foreground transitions stop pending playback and mark the engine for replacement on the next tap. Feedback detects a stalled resume (1.8 seconds) or frozen audio clock (1.2 seconds), reports a retry message, and rebuilds on the next tap. Number playback detects four seconds without progress and reloads on retry. Old requests are cancelled so a delayed resume cannot play a stale sound.
+
+Diagnostics include page lifecycle, engine reconstruction, and playback failure details. Browser events cannot confirm physical speaker output; silent-mode and interruption behavior still require testing on an actual iPhone.

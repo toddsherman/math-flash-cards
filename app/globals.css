@@ -51,3 +51,7 @@ audio { display: none; }
 .diagnostics-panel pre { max-height: min(32dvh, 230px); overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font: 10px/1.5 monospace; user-select: text; }
 .diagnostics-panel button { min-height: 44px; padding: 8px 12px; margin-right: 8px; cursor: pointer; }
 .diagnostics-panel .diagnostics-note { font-size: 10px; }
+
+/* Sound controls are tap targets; swipe anywhere else on the card. */
+.card-actions, .card-actions button { touch-action: none; }
+.audio-error { position: fixed; left: 16px; right: 100px; bottom: max(24px, env(safe-area-inset-bottom)); margin: 0; color: #956843; font-size: 14px; }
