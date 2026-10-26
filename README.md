@@ -6,7 +6,7 @@ An ultra-minimal, iPhone-friendly number practice app built for a five-year-old.
 
 ## Features
 
-- Nine ranges: 0–10, 10–20 (default), 10–30, 20–30, 0–100, 10–100, 5–100 by fives, 10–100 by tens, and Teens & tens (13, 30, 31, 14, 40, 41, 15, 50, 51, 16, 60, 61, 17, 70, 71, 18, 80, 81, 19, 90, 91).
+- Eleven ranges: 0–10, 10–20 (default), 10–30, 11–29, 20–30, 0–100, 10–100, 5–100 by fives, 10–100 by tens, 11–99 by elevens, and Teens & tens (13, 30, 31, 14, 40, 41, 15, 50, 51, 16, 60, 61, 17, 70, 71, 18, 80, 81, 19, 90, 91).
 - Remembers the selected range on the device.
 - Teens & tens runs in a fixed sequence of confusing groups: 13, 30, 31; 14, 40, 41; and so on through 19, 90, 91, then repeats. All other ranges use shuffled batches with every number once and no repeated number at the batch boundary.
 - Full-screen vertical swiping moves the number, name, and speaker together. Swipe up for the next card and down for the previous one.

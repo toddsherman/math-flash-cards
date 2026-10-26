@@ -2,11 +2,13 @@ export const RANGES = [
   { id: "0-10", label: "0–10", numbers: Array.from({ length: 11 }, (_, i) => i) },
   { id: "10-20", label: "10–20", numbers: Array.from({ length: 11 }, (_, i) => i + 10) },
   { id: "10-30", label: "10–30", numbers: Array.from({ length: 21 }, (_, i) => i + 10) },
+  { id: "11-29", label: "11–29", numbers: Array.from({ length: 19 }, (_, i) => i + 11) },
   { id: "20-30", label: "20–30", numbers: Array.from({ length: 11 }, (_, i) => i + 20) },
   { id: "0-100", label: "0–100", numbers: Array.from({ length: 101 }, (_, i) => i) },
   { id: "10-100", label: "10–100", numbers: Array.from({ length: 91 }, (_, i) => i + 10) },
   { id: "fives", label: "5–100 (by 5s)", description: "5, 10, 15 … 100", numbers: Array.from({ length: 20 }, (_, i) => (i + 1) * 5) },
   { id: "tens", label: "Only 10s", description: "10, 20, 30 … 100", numbers: Array.from({ length: 10 }, (_, i) => (i + 1) * 10) },
+  { id: "elevens", label: "11–99 (by 11s)", description: "11, 22, 33 … 99", numbers: Array.from({ length: 9 }, (_, i) => (i + 1) * 11) },
   { id: "teens-and-tens", label: "Teens & tens", description: "In order: 13, 30, 31 … 19, 90, 91", ordered: true, numbers: [13, 30, 31, 14, 40, 41, 15, 50, 51, 16, 60, 61, 17, 70, 71, 18, 80, 81, 19, 90, 91] },
 ];
 export const DEFAULT_RANGE = RANGES.find(range => range.id === "10-20")!;
