@@ -85,7 +85,12 @@ export default function MathPractice() {
 
   useEffect(() => {
     let range = DEFAULT_RANGE;
-    try { range = RANGES.find(r => r.id === localStorage.getItem("math-number-range")) ?? range; } catch {}
+    try {
+      const saved = localStorage.getItem("math-number-range");
+      const id = saved === "11-29" ? "13-19" : saved;
+      range = RANGES.find(r => r.id === id) ?? range;
+      if (saved === "11-29") localStorage.setItem("math-number-range", range.id);
+    } catch {}
     rangeRef.current = range;
     setRangeId(range.id);
     const first = nextBatch(range);
