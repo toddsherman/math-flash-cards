@@ -67,6 +67,8 @@ export default function MathPractice() {
   const gesture = useRef<{ id: number; x: number; y: number; time: number } | null>(null);
   const targetPage = useRef<number | null>(null);
   const settling = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollAnimation = useRef<number | null>(null);
+  const rebasing = useRef(false);
   const [speaking, setSpeaking] = useState(false);
   const [error, setError] = useState("");
   const audio = useRef<HTMLAudioElement | null>(null);
@@ -152,6 +154,7 @@ export default function MathPractice() {
       window.removeEventListener("pageshow", lifecycle);
       stopAudio(); player?.pause(); feedback.dispose(); feedbackAudio.current = null;
       if (settling.current) clearTimeout(settling.current);
+      if (scrollAnimation.current !== null) cancelAnimationFrame(scrollAnimation.current);
     };
   }, []);
 
@@ -236,17 +239,21 @@ export default function MathPractice() {
     }
     const next = { deck, index };
     logSwipe("advance", { step, number: deck[index] });
+    rebasing.current = true;
     cardsRef.current = next;
     setCards(next);
   }
 
-  // Keep only three full-height pages mounted. Recenter after the native scroll
+  // Keep only three full-height pages mounted. Recenter after the scroll
   // settles, preserving the visible card and its previously visited neighbors.
   useLayoutEffect(() => {
     const element = feed.current;
     if (!element || !cards.deck.length) return;
     targetPage.current = null;
     element.scrollTo({ top: element.clientHeight, behavior: "instant" });
+    delete element.dataset.settling;
+    delete element.dataset.dragging;
+    rebasing.current = false;
   }, [cards]);
 
   useEffect(() => {
@@ -254,6 +261,8 @@ export default function MathPractice() {
     if (!element) return;
     const observer = new ResizeObserver(() => {
       if (settling.current) clearTimeout(settling.current);
+      cancelScrollAnimation();
+      delete element.dataset.dragging;
       targetPage.current = null;
       gesture.current = null;
       element.scrollTo({ top: element.clientHeight, behavior: "instant" });
@@ -264,7 +273,7 @@ export default function MathPractice() {
 
   function finishScroll() {
     const element = feed.current;
-    if (!element || touching.current || settings.current?.open || !cardsRef.current.deck.length) return;
+    if (!element || touching.current || scrollAnimation.current !== null || rebasing.current || settings.current?.open || !cardsRef.current.deck.length) return;
     const page = Math.round(element.scrollTop / element.clientHeight);
     // Safari may start its own snap-back on release. Honor the deliberate swipe
     // instead of committing that competing animation's destination.
@@ -280,23 +289,63 @@ export default function MathPractice() {
 
   function queueSettle() {
     if (settling.current) clearTimeout(settling.current);
-    settling.current = setTimeout(finishScroll, 180);
+    if (touching.current || scrollAnimation.current !== null || rebasing.current) return;
+    settling.current = setTimeout(finishScroll, 100);
+  }
+
+  function cancelScrollAnimation() {
+    if (scrollAnimation.current !== null) cancelAnimationFrame(scrollAnimation.current);
+    scrollAnimation.current = null;
+    if (feed.current) delete feed.current.dataset.settling;
   }
 
   function scrollToPage(page: number) {
     const element = feed.current;
-    if (!element || settings.current?.open) return;
+    if (!element || settings.current?.open || rebasing.current) return;
+    if (scrollAnimation.current !== null && targetPage.current === page) return;
+    cancelScrollAnimation();
+    if (settling.current) clearTimeout(settling.current);
     stopAudio();
     targetPage.current = page;
-    element.scrollTo({ top: page * element.clientHeight,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
-    queueSettle();
+    // Native smooth scrolling has a long, browser-dependent tail and can compete
+    // with CSS snapping. Own just the release animation; dragging stays native.
+    element.dataset.settling = "true";
+    delete element.dataset.dragging;
+    let from = element.scrollTop;
+    const to = page * element.clientHeight;
+    let distance = to - from;
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0
+      : Math.min(200, Math.max(100, Math.abs(distance) / element.clientHeight * 200));
+    let started: number | null = null;
+    const tick = (now: number) => {
+      if (started === null) {
+        // The compositor can deliver one last drag offset after touch-end. Start
+        // from that displayed position rather than jumping back a few pixels.
+        started = now;
+        from = element.scrollTop;
+        distance = to - from;
+        logSwipe("settle-start", { from: Math.round(from), to, duration: Math.round(duration) });
+      }
+      const progress = duration ? Math.max(0, Math.min(1, (now - started) / duration)) : 1;
+      const eased = progress * (2 - progress);
+      element.scrollTo({ top: from + distance * eased, behavior: "instant" });
+      if (progress < 1) { scrollAnimation.current = requestAnimationFrame(tick); return; }
+      scrollAnimation.current = null;
+      targetPage.current = null;
+      logSwipe("settled", { duration: Math.round(now - started), page });
+      if (page !== 1) advance(page === 0 ? -1 : 1);
+      else delete element.dataset.settling;
+    };
+    if (duration === 0) tick(performance.now());
+    else scrollAnimation.current = requestAnimationFrame(tick);
   }
 
   function move(step: number) { scrollToPage(step > 0 ? 2 : 0); }
 
   function startTouch(event: TouchEvent<HTMLDivElement>) {
     if ((event.target as Element).closest(".card-actions")) return;
+    if (feed.current) feed.current.dataset.dragging = "true";
+    cancelScrollAnimation();
     touching.current = true;
     targetPage.current = null;
     if (settling.current) clearTimeout(settling.current);
@@ -313,7 +362,10 @@ export default function MathPractice() {
     gesture.current = null;
     if (touching.current) return;
     const end = Array.from(event.changedTouches).find(touch => touch.identifier === start?.id);
-    if (!start || !end) { queueSettle(); return; }
+    if (!start || !end) {
+      if (feed.current) delete feed.current.dataset.dragging;
+      queueSettle(); return;
+    }
     const dy = start.y - end.clientY;
     const dx = start.x - end.clientX;
     // Distance, not screen height: short intentional swipes work on tall phones.
@@ -322,6 +374,7 @@ export default function MathPractice() {
     logSwipe("release", { dy: Math.round(dy), dx: Math.round(dx), duration: Math.round(performance.now() - start.time), target: page, decision: cancelled ? "cancel" : deliberate ? "advance" : "snap-back" });
     // A stationary tap must not cancel the sound that started on pointer-down.
     if (!deliberate && feed.current && Math.abs(feed.current.scrollTop - feed.current.clientHeight) <= 2) {
+      delete feed.current.dataset.dragging;
       targetPage.current = null;
       return;
     }
@@ -329,10 +382,15 @@ export default function MathPractice() {
   }
 
   function resetInteraction() {
+    cancelScrollAnimation();
     stopAudio(); setError(""); touching.current = false;
     gesture.current = null; targetPage.current = null; buttonTouch.current = null;
     feedbackPressed.current = false; speakerPressed.current = false;
     if (settling.current) clearTimeout(settling.current);
+    if (feed.current) {
+      delete feed.current.dataset.dragging;
+      feed.current.scrollTo({ top: feed.current.clientHeight, behavior: "instant" });
+    }
   }
 
   function setDeck(next: Deck) { cardsRef.current = next; setCards(next); }
