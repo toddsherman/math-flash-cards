@@ -1,0 +1,2126 @@
+{
+  "model": "gpt-4o-mini-tts",
+  "voice": "marin",
+  "response_format": "mp3",
+  "instructions": "Say only the supplied English word once. Use clear natural American English, like a warm patient teacher helping a child learn to read. No spelling, definitions, introductions, extra words, music or sound effects. A gently unhurried conversational pace with consistent volume. Pronounce read in the present tense, rhyming with seed. Pronounce live as a verb if present. Pronounce contractions naturally, not as separate letters.",
+  "pronunciationOverrides": {
+    "read": {
+      "input": "reed"
+    },
+    "you'll": {
+      "input": "yule"
+    },
+    "thank": {
+      "instructions": "Say only the supplied English word once. Use clear natural American English, like a warm patient teacher helping a child learn to read. No spelling, definitions, introductions, extra words, music or sound effects. A gently unhurried conversational pace with consistent volume. Pronounce read in the present tense, rhyming with seed. Pronounce live as a verb if present. Pronounce contractions naturally, not as separate letters. The word is THANK, pronounced th-ank, rhyming with bank. Use the short A vowel as in cat, not the I vowel in think."
+    },
+    "than": {
+      "input": "More than enough.",
+      "speed": 0.8,
+      "instructions": "Read this phrase clearly in a warm natural American English teacher voice. Speak slowly and clearly, emphasizing the middle word slightly. No extra words.",
+      "extractWord": "than"
+    }
+  },
+  "revision": "2c972761ebec",
+  "clips": [
+    {
+      "word": "the",
+      "duration": 0.912,
+      "meanDb": -28.1,
+      "peakDb": -11.9,
+      "sha256": "b12f1c24c2736e8791651c3b78b2e9d3acc04c40c76812b24669dc90cbfaecb1"
+    },
+    {
+      "word": "and",
+      "duration": 1.2,
+      "meanDb": -25.4,
+      "peakDb": -9.2,
+      "sha256": "84656b4891ec4515f3c86924e87bc43e7b881573881c234029c3aee87669b100"
+    },
+    {
+      "word": "a",
+      "duration": 0.72,
+      "meanDb": -21.2,
+      "peakDb": -4.7,
+      "sha256": "d316e9e9d1880362f9052ed20b530d4a2e035c3f6209066d4fb9bd588b4666f6"
+    },
+    {
+      "word": "to",
+      "duration": 0.912,
+      "meanDb": -28.3,
+      "peakDb": -12,
+      "sha256": "5604d6fe5d87c94891c25049f3ad5ac56273bfa31aa3503251259d6b9c6a418e"
+    },
+    {
+      "word": "i",
+      "duration": 0.768,
+      "meanDb": -27,
+      "peakDb": -8.9,
+      "sha256": "a73a927ccdcb99ddbefa2ccc2d106dcd5e4d781807646b4dd1f7b2c2f70ff05f"
+    },
+    {
+      "word": "you",
+      "duration": 1.416,
+      "meanDb": -25.8,
+      "peakDb": -11.1,
+      "sha256": "ab0920631cbeddc9760d55dd02946b2f183d6ef4ff5ccc6ce264d291b132f79c"
+    },
+    {
+      "word": "in",
+      "duration": 0.816,
+      "meanDb": -23.7,
+      "peakDb": -6.3,
+      "sha256": "dc27fef953a5594a02d3fae01d8d2ba92af6cfc0894b546265c72048cccff011"
+    },
+    {
+      "word": "of",
+      "duration": 1.248,
+      "meanDb": -25.2,
+      "peakDb": -6.1,
+      "sha256": "73bc6219363be2bb7882cabd2db2bc6364f8a074147510c0560fade6ef86d0ea"
+    },
+    {
+      "word": "it",
+      "duration": 0.648,
+      "meanDb": -26.8,
+      "peakDb": -8.4,
+      "sha256": "d51c4c7a00d2d040abc08460906c20d0a8daa95e818d492ad2e3389dd4c2ea87"
+    },
+    {
+      "word": "he",
+      "duration": 1.968,
+      "meanDb": -28.8,
+      "peakDb": -8.8,
+      "sha256": "0561fa591fc922c88e2d18fd197d1cde33d6a6cdbd5e91e243e43dbc7d4533aa"
+    },
+    {
+      "word": "is",
+      "duration": 1.248,
+      "meanDb": -25.1,
+      "peakDb": -8.2,
+      "sha256": "5d92dc863f50bca64a80d65912892594d1b3386418ad8f75f87687370705907b"
+    },
+    {
+      "word": "was",
+      "duration": 0.912,
+      "meanDb": -23.5,
+      "peakDb": -3.5,
+      "sha256": "e053577527c7b1883c0edd7358a3ef9596842f7b287d4ed37665fe9229a064f4"
+    },
+    {
+      "word": "for",
+      "duration": 0.768,
+      "meanDb": -24.3,
+      "peakDb": -8.9,
+      "sha256": "138fb2d9af6a6dfdf01cf222501469c4d80c03964d7b563aa3ba343a326e6361"
+    },
+    {
+      "word": "on",
+      "duration": 1.512,
+      "meanDb": -26.8,
+      "peakDb": -7.3,
+      "sha256": "5d3513f7175258d91697b2427212615398e1a9a30d1b168e332e823156506325"
+    },
+    {
+      "word": "that",
+      "duration": 1.056,
+      "meanDb": -25.8,
+      "peakDb": -2.5,
+      "sha256": "0a4d68c0f552fa6014ebf281efd960b718ccd73b56bdf432e186165bd6e91f83"
+    },
+    {
+      "word": "with",
+      "duration": 1.464,
+      "meanDb": -25.9,
+      "peakDb": -5,
+      "sha256": "ff7231870ea3114775efe567f272f3e3ed5b187a68fa2e63a9e38d9a81dfbdce"
+    },
+    {
+      "word": "but",
+      "duration": 1.416,
+      "meanDb": -28.2,
+      "peakDb": -8,
+      "sha256": "11489f2f5fde7f04ede9632cb3d12f3272b5de43fa85281640b33d0ce17a1799"
+    },
+    {
+      "word": "his",
+      "duration": 0.816,
+      "meanDb": -25.2,
+      "peakDb": -10.2,
+      "sha256": "01594f5927b78a546cbf3501fa57d0bb9d29781712000648483d423a2dc34b3d"
+    },
+    {
+      "word": "all",
+      "duration": 1.152,
+      "meanDb": -23.6,
+      "peakDb": -4.8,
+      "sha256": "10e153585fc9b42c25f97cc779cb19faa4b5c7526c99d45dd68be0dbb206a10d"
+    },
+    {
+      "word": "they",
+      "duration": 1.512,
+      "meanDb": -27.1,
+      "peakDb": -6.5,
+      "sha256": "2071956b76fccb23ce4d59e2d3cbedfa6f93f9cf80af16d2738684beacf7fba0"
+    },
+    {
+      "word": "my",
+      "duration": 0.816,
+      "meanDb": -23.6,
+      "peakDb": -8.1,
+      "sha256": "701b823b79f6c06431b51f60f3c3c2faa34b615a296e4b348fd56f890d1a89ae"
+    },
+    {
+      "word": "so",
+      "duration": 1.056,
+      "meanDb": -26.1,
+      "peakDb": -9.4,
+      "sha256": "3855501a4b5fd86a00bdd59f78254affb421fdffe6db54645dcb1910ecc260af"
+    },
+    {
+      "word": "be",
+      "duration": 1.008,
+      "meanDb": -24.1,
+      "peakDb": -7.1,
+      "sha256": "b42adb45629f01a6fae25c4bd2e7145b6befef08e251cc11f60d6beea49cb328"
+    },
+    {
+      "word": "she",
+      "duration": 0.912,
+      "meanDb": -27.8,
+      "peakDb": -13.4,
+      "sha256": "31fa85f8b4cffbf3a6144a8127ff5612e3d69c823d1c0b813888a670a7d89d32"
+    },
+    {
+      "word": "up",
+      "duration": 0.648,
+      "meanDb": -29.3,
+      "peakDb": -12.1,
+      "sha256": "6d6d9148e9ae590df2aeb9a3d05c6f54b81e110a91d9d5a77c96f577a8bd7963"
+    },
+    {
+      "word": "at",
+      "duration": 0.816,
+      "meanDb": -27.8,
+      "peakDb": -6.4,
+      "sha256": "6c60b7b79219448655a2b13e12de46353731695c5fe1f0367c95be586e52b31e"
+    },
+    {
+      "word": "are",
+      "duration": 1.464,
+      "meanDb": -25.6,
+      "peakDb": -6.7,
+      "sha256": "5ac2d3a115451f8eda20ff5737064244a3c681bd2c82c36fc74ff2f85a84c419"
+    },
+    {
+      "word": "one",
+      "duration": 0.912,
+      "meanDb": -26.7,
+      "peakDb": -9.4,
+      "sha256": "31100fadd1798ff575338c08a9fed0a562d275f2ce27b4db4f8ef5259fd5954a"
+    },
+    {
+      "word": "said",
+      "duration": 0.864,
+      "meanDb": -27.8,
+      "peakDb": -11.1,
+      "sha256": "fb5bf781f5705bc0f3804f724b19d7aa05bcd6e66cfa8b366e50f0f2824de35b"
+    },
+    {
+      "word": "what",
+      "duration": 0.96,
+      "meanDb": -25.1,
+      "peakDb": -6.2,
+      "sha256": "8d31a3b5e63874a3c8ec99252b8897c89c498054d848a4f74b65dc3312d96ae8"
+    },
+    {
+      "word": "this",
+      "duration": 1.152,
+      "meanDb": -22.8,
+      "peakDb": -2.5,
+      "sha256": "0700b429869e60042245aa5740129b461e055bbb996ad3f1d0dd50a662c236e7"
+    },
+    {
+      "word": "when",
+      "duration": 0.816,
+      "meanDb": -26.4,
+      "peakDb": -5.7,
+      "sha256": "ea462758c657b898aa64ce9b2a406fd2f05550b598c15ef96db1c711b9f06d43"
+    },
+    {
+      "word": "we",
+      "duration": 1.752,
+      "meanDb": -27.2,
+      "peakDb": -11.3,
+      "sha256": "8d536f492561864218cc439b507997ab5f90e9294f5642b7e1f3248f492bc36d"
+    },
+    {
+      "word": "me",
+      "duration": 1.2,
+      "meanDb": -24.3,
+      "peakDb": -8.8,
+      "sha256": "732df5831c53f4407d1f9a0246a63099cecc00f95eb992787a3211224930bce5"
+    },
+    {
+      "word": "have",
+      "duration": 1.008,
+      "meanDb": -28.9,
+      "peakDb": -11.6,
+      "sha256": "c5ffa776a95fc052ed0e66e96534519b2be7cb18aa28fb2311c6e1c546ecd185"
+    },
+    {
+      "word": "as",
+      "duration": 1.2,
+      "meanDb": -26.5,
+      "peakDb": -7.2,
+      "sha256": "20c794e747080cc676315f58c057cf5d5339242d16f90931a2df232d699dd243"
+    },
+    {
+      "word": "do",
+      "duration": 1.368,
+      "meanDb": -24.8,
+      "peakDb": -7.5,
+      "sha256": "3c78c921c26f3db7931e6ffcbfc554d4dd04c65eebeca2ecc36cd5a0f7ba3d85"
+    },
+    {
+      "word": "like",
+      "duration": 1.008,
+      "meanDb": -26.6,
+      "peakDb": -7,
+      "sha256": "223ddd51e9fe417b77ca8fa83b20aa8c133319c6f58e395cf340a1b979d30f34"
+    },
+    {
+      "word": "out",
+      "duration": 0.864,
+      "meanDb": -23.8,
+      "peakDb": -4.8,
+      "sha256": "359c631d5a99e251f4b60f7e61ec3e4c4b867ef1d381f95d95458aea61f033d9"
+    },
+    {
+      "word": "can",
+      "duration": 1.416,
+      "meanDb": -26.4,
+      "peakDb": -7.4,
+      "sha256": "7429d83c687dfad359bd02967f366b9744217b97f113a67420482dfe36c64cb0"
+    },
+    {
+      "word": "her",
+      "duration": 1.608,
+      "meanDb": -28.1,
+      "peakDb": -5.9,
+      "sha256": "facc6dc6891a4630d0a00f7de2d4c9dc5995f3126cb1b20660ebea337c53d046"
+    },
+    {
+      "word": "not",
+      "duration": 1.104,
+      "meanDb": -25.8,
+      "peakDb": -7.3,
+      "sha256": "aba48f2491812be7e3e41e430fe6ea530d4458329a9c7375ba25c2e4486e2124"
+    },
+    {
+      "word": "then",
+      "duration": 0.96,
+      "meanDb": -26.1,
+      "peakDb": -9.6,
+      "sha256": "87c60c5f8709586b5c697cd3f5ff76f5fad7d779b966decc253d670a08657938"
+    },
+    {
+      "word": "your",
+      "duration": 0.816,
+      "meanDb": -25.1,
+      "peakDb": -10.4,
+      "sha256": "0e9e25a8dc9589c320f163ad8fe554f3833e49e6c760f839597d2598d38abbaa"
+    },
+    {
+      "word": "no",
+      "duration": 0.864,
+      "meanDb": -23.5,
+      "peakDb": -5.9,
+      "sha256": "8de1049f9c008e4ce12521ca1267a610ab531ac8699e81f03234f36de88bdbc9"
+    },
+    {
+      "word": "there",
+      "duration": 0.816,
+      "meanDb": -25.7,
+      "peakDb": -7.6,
+      "sha256": "f8899766c1a97dfccf8419d8643c9dce5b2671d0f7d350591caadc2526a505d4"
+    },
+    {
+      "word": "day",
+      "duration": 1.368,
+      "meanDb": -27.3,
+      "peakDb": -8,
+      "sha256": "1b8ab60cac4fa1959f0234c90a1b04244170984e0fcf0a28847c94dbb03d500f"
+    },
+    {
+      "word": "just",
+      "duration": 1.32,
+      "meanDb": -25.9,
+      "peakDb": -3,
+      "sha256": "fd0a334a0370ade7ac9248e3fe0f6a7cf3ccb03855095b487aadc89bd635e1b3"
+    },
+    {
+      "word": "it's",
+      "duration": 1.464,
+      "meanDb": -25.8,
+      "peakDb": -7.1,
+      "sha256": "8f5b9a9ba95ec5e04d064b8d09b76d3e3a7ea2376f6069e33ae4e03d0ed08221"
+    },
+    {
+      "word": "see",
+      "duration": 1.32,
+      "meanDb": -27.1,
+      "peakDb": -11.7,
+      "sha256": "40862b38148a471d805ac0e5a89cd423072cd16f4fa8e4fcf55c45b4d0d1a52f"
+    },
+    {
+      "word": "little",
+      "duration": 3,
+      "meanDb": -29.8,
+      "peakDb": -9.6,
+      "sha256": "81064f4170af73d88916f0acf10df539da81f2137228ea92eadd806101ed12c1"
+    },
+    {
+      "word": "time",
+      "duration": 0.912,
+      "meanDb": -29.3,
+      "peakDb": -14,
+      "sha256": "b3249dd2e8b68af974b9c996f35b266891bc5826815b134fca335dfb5e03e809"
+    },
+    {
+      "word": "from",
+      "duration": 1.008,
+      "meanDb": -27.4,
+      "peakDb": -9.6,
+      "sha256": "9e493a90834674b82803a3454456df555d611bb5d23c57eb67e65718e807ee9f"
+    },
+    {
+      "word": "had",
+      "duration": 1.152,
+      "meanDb": -28.6,
+      "peakDb": -6.7,
+      "sha256": "223343918c45047169e30aa1d3d981f47d9c4dfcbfe3dc697e8d1494fea5ea08"
+    },
+    {
+      "word": "now",
+      "duration": 1.56,
+      "meanDb": -22.3,
+      "peakDb": -8.9,
+      "sha256": "43c6c3ed14891362f8e7f012ea59cb3c31f10d0e2a05b1206d63013214a273c3"
+    },
+    {
+      "word": "will",
+      "duration": 1.056,
+      "meanDb": -24.3,
+      "peakDb": -8,
+      "sha256": "95f6766d8fb2d75c51c95dd21a6ba0d5c5f53238a2a8a1de3c481abfaa4fa27b"
+    },
+    {
+      "word": "i'm",
+      "duration": 1.104,
+      "meanDb": -25.2,
+      "peakDb": -6.8,
+      "sha256": "2d88f2320e4efb1c1ff87f5649afef9d3809573a0d7f710d0fbbe081c29b8364"
+    },
+    {
+      "word": "go",
+      "duration": 1.248,
+      "meanDb": -24.9,
+      "peakDb": -8.7,
+      "sha256": "ee9a233653e29130e47b53bd0d796f85d8e5a407f6f892db2040784fd6e45357"
+    },
+    {
+      "word": "were",
+      "duration": 1.056,
+      "meanDb": -26,
+      "peakDb": -8.4,
+      "sha256": "207b2cb1a9cb2036cdac11a4dc325b033670abae2afe2566e43bd8e714d04dda"
+    },
+    {
+      "word": "too",
+      "duration": 0.96,
+      "meanDb": -27.5,
+      "peakDb": -9.5,
+      "sha256": "c9689dc989ffb35bd13fc6eae875a4e903b331d4eb227879286da5cf2f3b9383"
+    },
+    {
+      "word": "them",
+      "duration": 1.104,
+      "meanDb": -25.3,
+      "peakDb": -7.1,
+      "sha256": "ae5cb9b8deb424cfedfd7b98ed7003dac98719c56073884112e8f7b817b5716b"
+    },
+    {
+      "word": "him",
+      "duration": 1.152,
+      "meanDb": -29.6,
+      "peakDb": -11.6,
+      "sha256": "071c17e95eb2faf170d91dabc380b3f0c982ca1b2286759eb01bd4f985d7c128"
+    },
+    {
+      "word": "some",
+      "duration": 1.608,
+      "meanDb": -29.4,
+      "peakDb": -10,
+      "sha256": "a0dd0e230c9ca4a29a3624d50f41c4d0c39e8c80bba0abbb6ae14613bafeaae0"
+    },
+    {
+      "word": "big",
+      "duration": 1.104,
+      "meanDb": -25,
+      "peakDb": -7.2,
+      "sha256": "8a15490ac4e0db2b54007e0145ce6c8537ceb8354b457e0447efd42e68a93fa7"
+    },
+    {
+      "word": "get",
+      "duration": 0.768,
+      "meanDb": -26.6,
+      "peakDb": -7,
+      "sha256": "941765d64ae32d74bcf3a1cf98471c31a3ce48b6559581c9e0fdb77f83f69574"
+    },
+    {
+      "word": "if",
+      "duration": 1.56,
+      "meanDb": -26.9,
+      "peakDb": -4.7,
+      "sha256": "8d7735961397ef91fc5f80f9126ae755fc9d4883963aef5cd72b8becb6f22767"
+    },
+    {
+      "word": "good",
+      "duration": 0.96,
+      "meanDb": -20.7,
+      "peakDb": -3.9,
+      "sha256": "a5fa35e1642672b0ef8976fb711a8f35a0bc7f97e061c420586e23125d2ad48a"
+    },
+    {
+      "word": "don't",
+      "duration": 0.864,
+      "meanDb": -23.5,
+      "peakDb": -5.9,
+      "sha256": "ab6efc3db22062477eae8647c4951a574c1f9b8933f8124b02a33c8ca39cb4bf"
+    },
+    {
+      "word": "down",
+      "duration": 1.368,
+      "meanDb": -25.8,
+      "peakDb": -4.6,
+      "sha256": "ad9ed0c37efc9ff3652039a0d018bf95a5131aeb310c6f070725125acd8377e6"
+    },
+    {
+      "word": "by",
+      "duration": 1.008,
+      "meanDb": -23.5,
+      "peakDb": -4.9,
+      "sha256": "9104bef7758f0911483d6a0170ec39c28cf8f59de763b5475c6acf63d462fcf6"
+    },
+    {
+      "word": "how",
+      "duration": 1.416,
+      "meanDb": -24.9,
+      "peakDb": -7.8,
+      "sha256": "d2bbf98aeac268924fe947c8c881cd0acc9564e9f60f631aa4c0e78a938a4d19"
+    },
+    {
+      "word": "know",
+      "duration": 1.32,
+      "meanDb": -26.2,
+      "peakDb": -10.4,
+      "sha256": "67b7d36c900eeddc776079e327128ae5e840c93a60a81a59c88655ffd43b9372"
+    },
+    {
+      "word": "an",
+      "duration": 1.152,
+      "meanDb": -24.3,
+      "peakDb": -5.8,
+      "sha256": "79bc418cf633441dc1e6452a28c4b02b6316247a0d547d105f5690ff2700191e"
+    },
+    {
+      "word": "oh",
+      "duration": 1.608,
+      "meanDb": -30.1,
+      "peakDb": -12.9,
+      "sha256": "a67099c7e1e45f7641507be21b92a11d600c8eb443dfdd07a3a0483678ecbdbe"
+    },
+    {
+      "word": "more",
+      "duration": 0.96,
+      "meanDb": -22.9,
+      "peakDb": -10,
+      "sha256": "d0b64f31829e204e4c06d8a8a651bb5eaed7c0cc1872e8248eba090d8d6e38ce"
+    },
+    {
+      "word": "their",
+      "duration": 1.56,
+      "meanDb": -29.2,
+      "peakDb": -10.3,
+      "sha256": "723c090487e618408cef7f013f9ef3f36412f559be4615f12eef0ff38075559f"
+    },
+    {
+      "word": "could",
+      "duration": 1.056,
+      "meanDb": -26.2,
+      "peakDb": -10.9,
+      "sha256": "3c56e41d553bbe16797644f28ef4d0af45006a2fc4fb6facf08eeb061fb0631b"
+    },
+    {
+      "word": "about",
+      "duration": 0.912,
+      "meanDb": -26.1,
+      "peakDb": -9,
+      "sha256": "52b40920ff98a0aa4c21a10a9d9ecc0faa5dc7418b091bd7cd9c70a4c3ae2f90"
+    },
+    {
+      "word": "back",
+      "duration": 1.32,
+      "meanDb": -26.3,
+      "peakDb": -4.2,
+      "sha256": "970399bea09ce87fb102515a11ececd45ac0471bf33569af2aadbdd3f1d9d55b"
+    },
+    {
+      "word": "who",
+      "duration": 1.008,
+      "meanDb": -26.1,
+      "peakDb": -7.9,
+      "sha256": "39268db6dd64115391becf9ace582eccc329cecc7b7b243622cbbef98395005a"
+    },
+    {
+      "word": "or",
+      "duration": 0.912,
+      "meanDb": -26.2,
+      "peakDb": -11.2,
+      "sha256": "b4f278a8fb20d81ba7f2b6250f5343320fbc2e0e195e82bc7bc3617d69a5084f"
+    },
+    {
+      "word": "make",
+      "duration": 0.96,
+      "meanDb": -25.5,
+      "peakDb": -9.6,
+      "sha256": "0bd79eb34faf92d67c2330fc18e6f179223cacff50bdf584756e338a1133f1d0"
+    },
+    {
+      "word": "into",
+      "duration": 1.56,
+      "meanDb": -24.6,
+      "peakDb": -7.9,
+      "sha256": "3d49c3d08c4e180e77b46d7161a0df0b04104c3f5bda8e699e6a299585dd84fd"
+    },
+    {
+      "word": "look",
+      "duration": 1.512,
+      "meanDb": -30.7,
+      "peakDb": -11,
+      "sha256": "199a0ff05533c02dbba5f58f2e06a7597d45c6aac9fa2a149cf35d2dc99cd441"
+    },
+    {
+      "word": "very",
+      "duration": 0.864,
+      "meanDb": -22.4,
+      "peakDb": -5.9,
+      "sha256": "cab033f8559090a044f831285ae70764d8950f64d465cd58dcac897b34933abb"
+    },
+    {
+      "word": "would",
+      "duration": 1.104,
+      "meanDb": -23.9,
+      "peakDb": -6.3,
+      "sha256": "14f14c8e6baa2b6ec94f70ef06a67a4207a177b9060b248c9ed017d6b5ba52ed"
+    },
+    {
+      "word": "right",
+      "duration": 0.96,
+      "meanDb": -26.7,
+      "peakDb": -5.7,
+      "sha256": "0b7528ce132d3b5918e44e1f452161291bef8b4203159c423324fbd5d0c8e1a1"
+    },
+    {
+      "word": "here",
+      "duration": 0.864,
+      "meanDb": -25.8,
+      "peakDb": -9.5,
+      "sha256": "ce58d733e2112ab2b0f9584fa5141f37ab7f5ea757b500cde266ba15d0d0cae8"
+    },
+    {
+      "word": "love",
+      "duration": 1.464,
+      "meanDb": -27.1,
+      "peakDb": -8.1,
+      "sha256": "e959175626103b6e969a7725959f0659b465c70f1d2358d91d559dfadc11460c"
+    },
+    {
+      "word": "way",
+      "duration": 1.464,
+      "meanDb": -27.1,
+      "peakDb": -8.4,
+      "sha256": "26d49abb0015b08009df2bba446ffe83ea102f5d6ea43b07275b334ca991894a"
+    },
+    {
+      "word": "night",
+      "duration": 0.864,
+      "meanDb": -25.5,
+      "peakDb": -4.8,
+      "sha256": "3acdb583f90d3270f4537d1cbdf149cf13e0e393dff83854905c58e2cd6e1693"
+    },
+    {
+      "word": "did",
+      "duration": 0.816,
+      "meanDb": -22.4,
+      "peakDb": -6.4,
+      "sha256": "227991fcee38b37ada1ee2c60eaccbc3390fc88b6ee5d705dd16211a91bb3d00"
+    },
+    {
+      "word": "new",
+      "duration": 0.96,
+      "meanDb": -26.1,
+      "peakDb": -13.8,
+      "sha256": "332466747e973d9589e870738cb81844eb6037c1af913686c98b0ba775644dba"
+    },
+    {
+      "word": "come",
+      "duration": 0.96,
+      "meanDb": -27.9,
+      "peakDb": -10.1,
+      "sha256": "1497c7c43d7ed3933dbdef057b7e82d780762e2e68a891a36825e162d5b5b27c"
+    },
+    {
+      "word": "our",
+      "duration": 1.008,
+      "meanDb": -23.3,
+      "peakDb": -6.8,
+      "sha256": "daf89400ef353803c7795b276007ea4b7cebc3a7d51bee8bb4d5c7770cbb00c9"
+    },
+    {
+      "word": "two",
+      "duration": 0.912,
+      "meanDb": -25.2,
+      "peakDb": -8.9,
+      "sha256": "aed8d381ba65322d1d40d9ab4390ffa16b879bdbc427ad609ecead6bd077fd17"
+    },
+    {
+      "word": "want",
+      "duration": 0.912,
+      "meanDb": -25.5,
+      "peakDb": -6.5,
+      "sha256": "9f6b850e18b7259af0795c90e891061cbb6c4646dce02668dc16a46c3c8ff36e"
+    },
+    {
+      "word": "made",
+      "duration": 2.4,
+      "meanDb": -28.7,
+      "peakDb": -11.8,
+      "sha256": "869697e32831d5bef7f70f5a0e30fbdf7c30ea91b87e545b1d621f909bae9f57"
+    },
+    {
+      "word": "over",
+      "duration": 0.864,
+      "meanDb": -23.3,
+      "peakDb": -6,
+      "sha256": "c3d3fe1c1aff7c79f63304cc75febb488a4cde0060f5521c29a0c9467d6687c9"
+    },
+    {
+      "word": "around",
+      "duration": 0.864,
+      "meanDb": -23.7,
+      "peakDb": -6.3,
+      "sha256": "98b75eaa5936eda7380bbab5b4a77ffd12fc4410c1df9bd50733b104fc58ff5a"
+    },
+    {
+      "word": "even",
+      "duration": 0.816,
+      "meanDb": -23.7,
+      "peakDb": -9.7,
+      "sha256": "4d2e6963b6f79914cf1f300296bfa063ae222f924cbd63a5a2419d67afd207db"
+    },
+    {
+      "word": "away",
+      "duration": 0.912,
+      "meanDb": -24.5,
+      "peakDb": -9.2,
+      "sha256": "e63b164d250b2512a774caf398acbd2e566837bdb270f27c19cc5be546428d77"
+    },
+    {
+      "word": "help",
+      "duration": 0.96,
+      "meanDb": -29.3,
+      "peakDb": -10.2,
+      "sha256": "19845f28768b6fc8ca9cfe110d59a6a2b6b2d278e89e9aa88832fbe679512942"
+    },
+    {
+      "word": "has",
+      "duration": 1.416,
+      "meanDb": -25.3,
+      "peakDb": -5,
+      "sha256": "163eba17060e4c7665542ea395537adb2587fc4aa2c566e5552a8e55de2a159f"
+    },
+    {
+      "word": "home",
+      "duration": 2.016,
+      "meanDb": -28.4,
+      "peakDb": -7.9,
+      "sha256": "d6edd3dd3b339b3b22f3a89163afa403a1b3a576a64639ac3b15479189d4a5a9"
+    },
+    {
+      "word": "that's",
+      "duration": 1.464,
+      "meanDb": -26.6,
+      "peakDb": -6.5,
+      "sha256": "1ec42202c61eee21689491954bcb9da2959c408a96176a0e96056440991341f1"
+    },
+    {
+      "word": "off",
+      "duration": 1.104,
+      "meanDb": -26,
+      "peakDb": -6.8,
+      "sha256": "8e42d69d1f979eac9b55c3099d0b0f4549a744d0d501104e21b2d3caa4cd93c2"
+    },
+    {
+      "word": "got",
+      "duration": 0.96,
+      "meanDb": -27.1,
+      "peakDb": -6.3,
+      "sha256": "9256dcd4be2510ce34e1426ec852c2b9925386b93a2c43fa15e8bbf95bd15c79"
+    },
+    {
+      "word": "us",
+      "duration": 1.368,
+      "meanDb": -28.6,
+      "peakDb": -6.1,
+      "sha256": "d5f5b8732ae7e554f4eb15f97ca42500388c0ab4323c195ce2d5ad2583c74f15"
+    },
+    {
+      "word": "where",
+      "duration": 1.008,
+      "meanDb": -25.9,
+      "peakDb": -8.4,
+      "sha256": "2dee5ddb8f07c3af0bada1a736e620122e45d7006e029835189e8086702ef9fc"
+    },
+    {
+      "word": "think",
+      "duration": 1.056,
+      "meanDb": -27.9,
+      "peakDb": -8.9,
+      "sha256": "348a0b60d48fc9f03e43bd6bc09f4221e2fbe362b07b3f0caf9ddcd200e0c56c"
+    },
+    {
+      "word": "first",
+      "duration": 3.12,
+      "meanDb": -30.3,
+      "peakDb": -7.4,
+      "sha256": "4d93b2485706c3e8d0d344de83238976257ea53cbe73ce136d28e1c83e16f5ea"
+    },
+    {
+      "word": "through",
+      "duration": 1.56,
+      "meanDb": -28.1,
+      "peakDb": -12.3,
+      "sha256": "cf7062356862a592d1a9f28a74978aa2b663a191383720a54a0361d4475c5109"
+    },
+    {
+      "word": "went",
+      "duration": 1.056,
+      "meanDb": -26.7,
+      "peakDb": -6.6,
+      "sha256": "e3d223c1d8ef9b498c71655851633316659d48947760351825cf60d9ad1ae745"
+    },
+    {
+      "word": "friends",
+      "duration": 1.416,
+      "meanDb": -26.5,
+      "peakDb": -7.4,
+      "sha256": "5c425a8697e52ec8ce65d5570bd2b1d1eb15503ad4313d6cb9e3129563536d12"
+    },
+    {
+      "word": "things",
+      "duration": 1.608,
+      "meanDb": -28.2,
+      "peakDb": -11.3,
+      "sha256": "d81c89fb69fb57df87abfa8f0be7c113296bec12425c9a0c0b7c83a5771d069f"
+    },
+    {
+      "word": "play",
+      "duration": 1.56,
+      "meanDb": -26.7,
+      "peakDb": -3.7,
+      "sha256": "99a9480a7b326937e66e60460ee94e8700644231bf8c3b9a52981ae2a198714b"
+    },
+    {
+      "word": "take",
+      "duration": 1.104,
+      "meanDb": -31.9,
+      "peakDb": -12,
+      "sha256": "b307e2a58dedf95c46d14440be092762d511797436b982d51b010d9ff1735e12"
+    },
+    {
+      "word": "never",
+      "duration": 1.2,
+      "meanDb": -26.2,
+      "peakDb": -10.7,
+      "sha256": "075ab8b7b487156aa00f59cb7cc1fc4ac0643e8b08a98eea346a4ede775078f1"
+    },
+    {
+      "word": "other",
+      "duration": 0.72,
+      "meanDb": -26.5,
+      "peakDb": -7.7,
+      "sha256": "1674ce135a483e37bfe75f2a82990a72d653aa5314b31dba2ae9c2e0745681f2"
+    },
+    {
+      "word": "didn't",
+      "duration": 0.816,
+      "meanDb": -24.9,
+      "peakDb": -8.4,
+      "sha256": "9ff15968f112b1ba5288ffe4dd68e8a9378fb8d3795bf7def0d7f034c4f9e57d"
+    },
+    {
+      "word": "after",
+      "duration": 1.464,
+      "meanDb": -28.5,
+      "peakDb": -5.6,
+      "sha256": "d18960eac81b5e1ad06b3e0a9661df59f21cfcfae2e70b3a421618411dc13d19"
+    },
+    {
+      "word": "well",
+      "duration": 1.008,
+      "meanDb": -24.6,
+      "peakDb": -3.3,
+      "sha256": "a4dc0efad0e2d79e6ea95ee81bf03d71401b16c40db23d38f7d910476c3a1ca8"
+    },
+    {
+      "word": "next",
+      "duration": 1.32,
+      "meanDb": -27.8,
+      "peakDb": -9.9,
+      "sha256": "b0cc5955a79182684fa0ceb60ffe101c1ae90f4a6b2c2267b8c9441891e8c213"
+    },
+    {
+      "word": "say",
+      "duration": 1.752,
+      "meanDb": -28.7,
+      "peakDb": -10.2,
+      "sha256": "bcf8d41b9a53e23f18fa638bafaf7aa865e7a7a498f189171eaa693f536d91a3"
+    },
+    {
+      "word": "something",
+      "duration": 1.416,
+      "meanDb": -27,
+      "peakDb": -8.8,
+      "sha256": "05e20926e6c6be9908874bc4c737822bd8c303fb1489bff5ca8745258743dc9c"
+    },
+    {
+      "word": "why",
+      "duration": 0.768,
+      "meanDb": -24.4,
+      "peakDb": -7.5,
+      "sha256": "8fb5b2820b67cfd8ca22e1c8ce4d8d25a3d7ce727db103714b3190cbf74f9c94"
+    },
+    {
+      "word": "because",
+      "duration": 1.368,
+      "meanDb": -28,
+      "peakDb": -13.2,
+      "sha256": "44c58089880f517192ebb228e4c3984074e1eca50094628233d21d3fe95244a0"
+    },
+    {
+      "word": "find",
+      "duration": 1.2,
+      "meanDb": -28.8,
+      "peakDb": -10.1,
+      "sha256": "37961f6ee19c5ed91e6ca6ef777e445210b63e046edb98d8814f023eaa9a2b50"
+    },
+    {
+      "word": "before",
+      "duration": 2.712,
+      "meanDb": -26.9,
+      "peakDb": -9.9,
+      "sha256": "e7944bfe3a5fa1e978a0d028e773c7720661dff34fb0e223655bded0a248038c"
+    },
+    {
+      "word": "you're",
+      "duration": 1.416,
+      "meanDb": -23.8,
+      "peakDb": -8.4,
+      "sha256": "8588d2840846d460241d7ffb0592f43c12f9065ed071117dd3fc15a5fd200178"
+    },
+    {
+      "word": "again",
+      "duration": 1.56,
+      "meanDb": -26.2,
+      "peakDb": -6.4,
+      "sha256": "446821571dfd55c6c0103d4d11505a2f5061789d82d70b6ba501e3627dcdcbf2"
+    },
+    {
+      "word": "fun",
+      "duration": 1.2,
+      "meanDb": -25.2,
+      "peakDb": -4.7,
+      "sha256": "949257c1603626b02f87c66138e020256a0065a39b1c46424be5f81ec4a19c4e"
+    },
+    {
+      "word": "always",
+      "duration": 1.104,
+      "meanDb": -23.9,
+      "peakDb": -6.4,
+      "sha256": "bc638403127fe6a8f33e936e883f3beb9789fe289c56fe8bbfa317877f8b4a0c"
+    },
+    {
+      "word": "long",
+      "duration": 1.008,
+      "meanDb": -26.3,
+      "peakDb": -9.3,
+      "sha256": "21647f1c714639caccf200f9137f97940f7916a1edeacc46ded419050f129f17"
+    },
+    {
+      "word": "came",
+      "duration": 1.248,
+      "meanDb": -27.5,
+      "peakDb": -14.4,
+      "sha256": "04b004ac82d6f54e9a0fed625a8bccc229a30f67bb3b793da372fba1ed27b8b5"
+    },
+    {
+      "word": "let's",
+      "duration": 0.96,
+      "meanDb": -26.4,
+      "peakDb": -7.9,
+      "sha256": "259a3442659ddf75a06f4fbc6b7e1759a138b3b921a2144ab2e377f445d7ea32"
+    },
+    {
+      "word": "going",
+      "duration": 1.416,
+      "meanDb": -28.8,
+      "peakDb": -9.6,
+      "sha256": "c66a68991cfbf3011ae1984cd0269e9a1496accc3319aa5c9041d3f66e83b832"
+    },
+    {
+      "word": "i'll",
+      "duration": 1.416,
+      "meanDb": -25.9,
+      "peakDb": -12.2,
+      "sha256": "c3904f3283b60c92b4fd5c5080bb37cbb2718303ed55707f9ccb8d5c56bf4385"
+    },
+    {
+      "word": "much",
+      "duration": 1.104,
+      "meanDb": -26,
+      "peakDb": -8.7,
+      "sha256": "3ab3d5d603df3e3818d84db38a3beb3696dda210b70c56c7d41bf002fc84acd1"
+    },
+    {
+      "word": "still",
+      "duration": 1.152,
+      "meanDb": -25,
+      "peakDb": -10.3,
+      "sha256": "1cf2e49569dbd201f011a78d7c838b97ee89ce92db286fa360b7bbc3be600c6f"
+    },
+    {
+      "word": "thought",
+      "duration": 1.008,
+      "meanDb": -26.8,
+      "peakDb": -7.1,
+      "sha256": "1016f1d32e2a5e6afe6384f3222e630863cbfe2dfb117fd152be662d04aead93"
+    },
+    {
+      "word": "three",
+      "duration": 1.008,
+      "meanDb": -28.3,
+      "peakDb": -13.3,
+      "sha256": "72eab967e46188c19db22485bbef324d7b99d9ca8d4b08c29a4f3015653702b8"
+    },
+    {
+      "word": "people",
+      "duration": 0.864,
+      "meanDb": -24.5,
+      "peakDb": -7.4,
+      "sha256": "516e8fa80a306ced4e0a826fa801bc2eaced49c3eb3ae254c2e2b0d5803c3384"
+    },
+    {
+      "word": "old",
+      "duration": 0.96,
+      "meanDb": -21.4,
+      "peakDb": -4.9,
+      "sha256": "0847d88e66d772568e9d9fa7815a6e12b6dddf654d5506e21a6a5fc470b6583e"
+    },
+    {
+      "word": "every",
+      "duration": 1.2,
+      "meanDb": -26.9,
+      "peakDb": -7,
+      "sha256": "9691e3e53b1c968e66cc6dce01eabd01687f883e8abaff9562fcb1cbb7f8623f"
+    },
+    {
+      "word": "happy",
+      "duration": 1.008,
+      "meanDb": -27.2,
+      "peakDb": -6.7,
+      "sha256": "9fa1572d0c9c7b8d7b24f6d066274daf99411e0dc5df1ff9345745155a8abbbf"
+    },
+    {
+      "word": "really",
+      "duration": 1.368,
+      "meanDb": -26,
+      "peakDb": -9.9,
+      "sha256": "3e7e8d5f8f74c766437558a9c8cdc855ca67ba9bd076e0a036baae198d52ade4"
+    },
+    {
+      "word": "everyone",
+      "duration": 1.752,
+      "meanDb": -26.2,
+      "peakDb": -11.9,
+      "sha256": "eaa3a86b97301f43748e539661ee9080c46b54b82b0934c9011dc7758160d182"
+    },
+    {
+      "word": "house",
+      "duration": 0.96,
+      "meanDb": -24.4,
+      "peakDb": -4,
+      "sha256": "e3034ef2244675dcac4ef76b571ab245d0abce64ddbf054cd37ba029a78d3aa3"
+    },
+    {
+      "word": "can't",
+      "duration": 0.864,
+      "meanDb": -29.7,
+      "peakDb": -12.6,
+      "sha256": "11494c37e79b9bb94a38f25418886f69e5588992e0f02f392e4219063f996253"
+    },
+    {
+      "word": "looked",
+      "duration": 1.056,
+      "meanDb": -23.8,
+      "peakDb": -6.9,
+      "sha256": "35fe9040a4e8e7e4ba8ff02974839a84bea632dcba8480d7872d98c797af7546"
+    },
+    {
+      "word": "best",
+      "duration": 1.56,
+      "meanDb": -28.5,
+      "peakDb": -8.4,
+      "sha256": "5c2a0216468c18c57641e18f9fc1bac3c7e6d44dc8c39fa4434f8085709708e7"
+    },
+    {
+      "word": "eyes",
+      "duration": 1.008,
+      "meanDb": -24.3,
+      "peakDb": -7.4,
+      "sha256": "8a8b872934a28005355adc1031fff66c311442aa1ca836e0104bdfa25db39c7c"
+    },
+    {
+      "word": "head",
+      "duration": 1.416,
+      "meanDb": -29.6,
+      "peakDb": -11.4,
+      "sha256": "b410e677d319f028f4533047abc0a36d7d1aae9b397480d307078c3924607dfe"
+    },
+    {
+      "word": "need",
+      "duration": 1.104,
+      "meanDb": -22.8,
+      "peakDb": -11,
+      "sha256": "85dc9d09bb87616ea05831f30d96458ae7a7e716376e0205ba744d3c7b32f3a4"
+    },
+    {
+      "word": "only",
+      "duration": 1.968,
+      "meanDb": -26.4,
+      "peakDb": -6.1,
+      "sha256": "85ee4c3f6ee9bea4f56d48a797f16f2f48ddd1c1cef112083a60a1c0c9c6dd5c"
+    },
+    {
+      "word": "put",
+      "duration": 2.304,
+      "meanDb": -36.3,
+      "peakDb": -10.3,
+      "sha256": "e8b0d0d69e3ac21614961e37c0748215bf7f3ac8be1ef49ed431cf4b934e465c"
+    },
+    {
+      "word": "saw",
+      "duration": 2.208,
+      "meanDb": -28.8,
+      "peakDb": -9.2,
+      "sha256": "3f7a34301ca5a04b0089468e2d57cebaa6a05cb40919e963bd08a60c30c19cd6"
+    },
+    {
+      "word": "together",
+      "duration": 1.008,
+      "meanDb": -25.7,
+      "peakDb": -8.4,
+      "sha256": "06baa443bb00d3eceac03d924dd653fef6b0cb76dfcd966ab879bede545d3551"
+    },
+    {
+      "word": "each",
+      "duration": 1.968,
+      "meanDb": -25.6,
+      "peakDb": -8.6,
+      "sha256": "8b0d5b5d21882087ef9124c4a4b9589149b15dcf4abc4c841ee5c3d6d08df238"
+    },
+    {
+      "word": "great",
+      "duration": 0.864,
+      "meanDb": -23.9,
+      "peakDb": -7.5,
+      "sha256": "26d12695005a0c07d045bca7568bb7a7b633911fcae7126300013b371915fc62"
+    },
+    {
+      "word": "says",
+      "duration": 1.752,
+      "meanDb": -26.6,
+      "peakDb": -9.1,
+      "sha256": "09ec8f58801b10d29579bd063babc32cd6d01c33315d63298d2766c22a16dff5"
+    },
+    {
+      "word": "red",
+      "duration": 1.104,
+      "meanDb": -25.5,
+      "peakDb": -5.5,
+      "sha256": "698684b094c8f86eb5ace7c28cffe66b4b87a960e2868ece73e970b317befa8a"
+    },
+    {
+      "word": "give",
+      "duration": 1.152,
+      "meanDb": -25.6,
+      "peakDb": -7.7,
+      "sha256": "2b3fe6ae9c98ade345d695951d65f69695cf45b870598e33cdfbd86a60802599"
+    },
+    {
+      "word": "many",
+      "duration": 1.008,
+      "meanDb": -22.6,
+      "peakDb": -8.3,
+      "sha256": "d601253c49f209a294294ae093f148d8557b514cc4ecbf264aecc982ea554e96"
+    },
+    {
+      "word": "found",
+      "duration": 1.2,
+      "meanDb": -25.8,
+      "peakDb": -4,
+      "sha256": "6b0899e4e3a3fce50b05d84b4d94dbb04859cae513f0f48ce78a4acf4af84cce"
+    },
+    {
+      "word": "eat",
+      "duration": 1.008,
+      "meanDb": -27,
+      "peakDb": -9,
+      "sha256": "f0da4571d6f5d0ba60b8b2bf70063e2d5c999d7ceab7e47cf98d54f6357cea59"
+    },
+    {
+      "word": "asked",
+      "duration": 1.152,
+      "meanDb": -26.7,
+      "peakDb": -3.4,
+      "sha256": "2701f0a58fb3ab4a22ae8906d9ef14d2177dd92b40e8d37f3db12565a9878b75"
+    },
+    {
+      "word": "than",
+      "duration": 1.02,
+      "meanDb": -26,
+      "peakDb": -12.1,
+      "sha256": "2488e89d8c9793b78aea3979021b77c610701f9a75f9f6d5017ae85ce507f699"
+    },
+    {
+      "word": "while",
+      "duration": 1.368,
+      "meanDb": -25,
+      "peakDb": -5.4,
+      "sha256": "90cadf4d1f1cccc7f85704eb7126fd282eeba017dc9836445b0c56c5bdd6e1f5"
+    },
+    {
+      "word": "feel",
+      "duration": 1.104,
+      "meanDb": -25.2,
+      "peakDb": -8.1,
+      "sha256": "1249e51a705224c6f0b0bcfa09086f552c847557b4d5af4f473619d3d4083539"
+    },
+    {
+      "word": "school",
+      "duration": 2.304,
+      "meanDb": -24.2,
+      "peakDb": -8.2,
+      "sha256": "0072051cb4387960d3192b895864f1368082a619c47b8b5cf03198b2b2431e59"
+    },
+    {
+      "word": "soon",
+      "duration": 1.56,
+      "meanDb": -25.1,
+      "peakDb": -10.2,
+      "sha256": "59b750f8e057d3b123ed85e13c492b834783aa74ef6675927ec07387b7cc10d6"
+    },
+    {
+      "word": "called",
+      "duration": 1.368,
+      "meanDb": -29.6,
+      "peakDb": -8.8,
+      "sha256": "4d6a508c1506bd1714d32a0ceefb168027d524b1204e391022ff5b640c4f6efb"
+    },
+    {
+      "word": "am",
+      "duration": 0.72,
+      "meanDb": -24.4,
+      "peakDb": -10.4,
+      "sha256": "6c44564caef2d60df2672c3e7c1ad2f1128ae78b64146350f29d7f8fe6f981f2"
+    },
+    {
+      "word": "mom",
+      "duration": 0.912,
+      "meanDb": -23.4,
+      "peakDb": -6.5,
+      "sha256": "b2c2e361c643cb5b0630c50fd6a601eeea84e6c53c0e51b77e18d7a38b0f72d8"
+    },
+    {
+      "word": "morning",
+      "duration": 1.368,
+      "meanDb": -24.7,
+      "peakDb": -10,
+      "sha256": "28f5fd4371de2931af69669934bdb19ca498ed2af716cff47e0e7b077633a554"
+    },
+    {
+      "word": "tree",
+      "duration": 1.92,
+      "meanDb": -31.1,
+      "peakDb": -14.7,
+      "sha256": "27c1c8cad290c12d58edcd628fb2f7e684b3cb8824b03acdaddc8c65c25f151b"
+    },
+    {
+      "word": "last",
+      "duration": 1.152,
+      "meanDb": -26.7,
+      "peakDb": -8.2,
+      "sha256": "41614a9e7086c9787a21d6f8562c6b8cd72e8d62f5ad0384d6fb9b4079875cb3"
+    },
+    {
+      "word": "dad",
+      "duration": 2.304,
+      "meanDb": -28.6,
+      "peakDb": -5.1,
+      "sha256": "843a45e71cd057058c3a454c9d06e06959b22867f3a523dddd300e59ff0e925b"
+    },
+    {
+      "word": "bed",
+      "duration": 1.368,
+      "meanDb": -27.7,
+      "peakDb": -7.4,
+      "sha256": "901e06f9ba6804b74417e94ed9c5f57fd58b65912b6fae7b4c4c54febfcc0dd9"
+    },
+    {
+      "word": "took",
+      "duration": 1.464,
+      "meanDb": -31.4,
+      "peakDb": -10.8,
+      "sha256": "8f209865622e3036e2a6d673f8c50db9e1f30117f61267fbc4eba906ed5e1ae2"
+    },
+    {
+      "word": "friend",
+      "duration": 0.96,
+      "meanDb": -27.2,
+      "peakDb": -7.7,
+      "sha256": "6395461e819766b87092fcda00cd7a5e3ca75fa868e2d73e5fca7de9793b9135"
+    },
+    {
+      "word": "inside",
+      "duration": 1.056,
+      "meanDb": -23.5,
+      "peakDb": -12.1,
+      "sha256": "ecafafaf7f94c1ecf7f90bf871532c2fb93c2f7fd3009bf32e1c64f4c8cbff03"
+    },
+    {
+      "word": "ever",
+      "duration": 0.552,
+      "meanDb": -23.6,
+      "peakDb": -9.3,
+      "sha256": "dc499e4abacaf8a03aee1ed11ff158215c0b9ca88feee908f9166c0eac6ea1d0"
+    },
+    {
+      "word": "been",
+      "duration": 1.056,
+      "meanDb": -24.8,
+      "peakDb": -5.6,
+      "sha256": "9fb8e1f12ec0765263967cfd7b8ddcae5bfd8ee142053437423f159dd791e990"
+    },
+    {
+      "word": "sure",
+      "duration": 1.104,
+      "meanDb": -26.1,
+      "peakDb": -10.9,
+      "sha256": "68e7ae07d9beb7534979a2cbe06b5193fdb1d44726a5203e6040a30b6d895f3e"
+    },
+    {
+      "word": "there's",
+      "duration": 0.96,
+      "meanDb": -24.7,
+      "peakDb": -6.5,
+      "sha256": "323fdbb66630cc75224a9ca4bce9c43dd6650db33e91104d68e6ee9cf2de909b"
+    },
+    {
+      "word": "today",
+      "duration": 1.464,
+      "meanDb": -25.4,
+      "peakDb": -7.2,
+      "sha256": "396c73c0a336ae190ea050ab7aed00f16a12c2ec70380790bc804afcd4595d39"
+    },
+    {
+      "word": "does",
+      "duration": 1.104,
+      "meanDb": -26.6,
+      "peakDb": -11.3,
+      "sha256": "a50c05a00e8e2c9387fa2c632bb48966155c3c098d7cab7d527117bba18d3691"
+    },
+    {
+      "word": "started",
+      "duration": 1.248,
+      "meanDb": -25.9,
+      "peakDb": -8.8,
+      "sha256": "e6c9ce98af1128d5aa118c363b9a40b87040850e4c251699b03f1a31cc7d765a"
+    },
+    {
+      "word": "let",
+      "duration": 1.056,
+      "meanDb": -30.2,
+      "peakDb": -10.3,
+      "sha256": "0412741b6f2d2be2edb9143a6b1ca3ba9ae7b7242677c1166fcdf53fe7a67f55"
+    },
+    {
+      "word": "green",
+      "duration": 1.152,
+      "meanDb": -25.4,
+      "peakDb": -10.5,
+      "sha256": "53625493628e57ebe47fecf92d4e97739c345acbd3f0d78ae5ff4c473911e6a0"
+    },
+    {
+      "word": "tell",
+      "duration": 1.416,
+      "meanDb": -30.1,
+      "peakDb": -7.3,
+      "sha256": "15db371fdf05c2de99ccc3e7663a2273a8d214c83f5cdb3a357bd7d5458314b6"
+    },
+    {
+      "word": "door",
+      "duration": 0.96,
+      "meanDb": -23,
+      "peakDb": -6.8,
+      "sha256": "c3a918fa5afb6f6b5cde63d634bac2f235faf67b53cea88c6925775088c009e9"
+    },
+    {
+      "word": "maybe",
+      "duration": 1.752,
+      "meanDb": -24.8,
+      "peakDb": -9.4,
+      "sha256": "4fccfdad484deb705344724693275755f7facbcc5ae47b8c697602bd3df22d29"
+    },
+    {
+      "word": "he's",
+      "duration": 1.152,
+      "meanDb": -29.7,
+      "peakDb": -13,
+      "sha256": "98d75dfb1208cfa58acdaba5ef43a966d158b8ffc8295b2f7e6ce68a1ee13b3e"
+    },
+    {
+      "word": "small",
+      "duration": 2.352,
+      "meanDb": -28.3,
+      "peakDb": -12.1,
+      "sha256": "f357f0aa162f1f4c9c2c22fa399b0af8b78b4e9534e8d857f568ae7df9da72c1"
+    },
+    {
+      "word": "told",
+      "duration": 1.968,
+      "meanDb": -25.3,
+      "peakDb": -7.7,
+      "sha256": "ae86a6b60b782a90dbc7a67ea7a5e6ff082551f40cdcf715fb9d435d13e940d5"
+    },
+    {
+      "word": "please",
+      "duration": 1.2,
+      "meanDb": -27.7,
+      "peakDb": -13.4,
+      "sha256": "38efb3ce6318122f8cd0c5f14fb5c1bb2e2a48f720011406efce6db5996c8405"
+    },
+    {
+      "word": "yes",
+      "duration": 1.056,
+      "meanDb": -27.9,
+      "peakDb": -9.4,
+      "sha256": "dd035eaac5b51c904c9bc1cf3f38972aa98857f5a27713c9d219a82f6eef5aaf"
+    },
+    {
+      "word": "wanted",
+      "duration": 1.104,
+      "meanDb": -25.1,
+      "peakDb": -6.3,
+      "sha256": "8b76259da2edbfb6ca54b73d8274f4881eeb76c541bd0bc2a6f005543e2bcf03"
+    },
+    {
+      "word": "world",
+      "duration": 0.96,
+      "meanDb": -22.9,
+      "peakDb": -4.3,
+      "sha256": "7d1ec4d2739ad2e51a05f81ac80b53961582aabdd5fe97f133b480b06ae96fa3"
+    },
+    {
+      "word": "wait",
+      "duration": 1.104,
+      "meanDb": -26.8,
+      "peakDb": -7.6,
+      "sha256": "9e87de5b6a3a6262876e0e632ed8fc874663e26a988dc42227c03ed2b8cdfb4e"
+    },
+    {
+      "word": "thing",
+      "duration": 1.608,
+      "meanDb": -26.7,
+      "peakDb": -5.8,
+      "sha256": "8490f6ced80a00b05c658b1054f7f14a6de514fcf46c4b1ad1410240bdd1529a"
+    },
+    {
+      "word": "work",
+      "duration": 0.864,
+      "meanDb": -23.4,
+      "peakDb": -6,
+      "sha256": "6df050f20ef4db205e84b4032ef20962db9094d4b76c126d3cad5416d8b2da20"
+    },
+    {
+      "word": "hard",
+      "duration": 0.912,
+      "meanDb": -24.8,
+      "peakDb": -5.3,
+      "sha256": "21f745ae675efff78a0bc5eb36cde89d0e2232f7c2c376f4b2a5261c0696a085"
+    },
+    {
+      "word": "blue",
+      "duration": 1.008,
+      "meanDb": -22.9,
+      "peakDb": -8.8,
+      "sha256": "7906c66f6a2abf171a0e1eed30ac79d27dd669b374a4d3baa1524c999d35c08d"
+    },
+    {
+      "word": "should",
+      "duration": 1.248,
+      "meanDb": -28.7,
+      "peakDb": -12.8,
+      "sha256": "5154ff8367269ccbc576d2156bdbca1b7a469bb22b42204543afddcaf78ca953"
+    },
+    {
+      "word": "until",
+      "duration": 1.152,
+      "meanDb": -24.8,
+      "peakDb": -7.6,
+      "sha256": "c455f43dc179ceb4e357b293788856a74a585d2b11a4cb42852c5aff57b95af2"
+    },
+    {
+      "word": "ready",
+      "duration": 0.864,
+      "meanDb": -24.3,
+      "peakDb": -8.2,
+      "sha256": "f40409a655b7157d983357a1d0076eb5db430d17dbc46cc207c20e2c441593bb"
+    },
+    {
+      "word": "water",
+      "duration": 0.96,
+      "meanDb": -24.5,
+      "peakDb": -5.9,
+      "sha256": "b47348d709576d22ea31854f05387afa9f1bd0b8f6e25c68da058ef12747cb8f"
+    },
+    {
+      "word": "left",
+      "duration": 0.816,
+      "meanDb": -24.2,
+      "peakDb": -3.6,
+      "sha256": "bfecf1ee6ef6fa5f5204c2f1cf3a34f6662e418861840e2c40b0727857466ccb"
+    },
+    {
+      "word": "gave",
+      "duration": 1.368,
+      "meanDb": -27,
+      "peakDb": -9.5,
+      "sha256": "e6b9d47cac112fcc8bd495ddb3cefe2d8fbe42fd7bbb2fcbe80a78e81dd5a13e"
+    },
+    {
+      "word": "family",
+      "duration": 1.416,
+      "meanDb": -26.4,
+      "peakDb": -6.7,
+      "sha256": "af626753cef804d93b93cb29a91098c866bbff376719aa8371931c3ffb303007"
+    },
+    {
+      "word": "stop",
+      "duration": 1.104,
+      "meanDb": -28,
+      "peakDb": -8.8,
+      "sha256": "bcf39fec89927e0d441e3afcb8a7ca5c1dea3b7a75db6f49cc4b816d7904268c"
+    },
+    {
+      "word": "must",
+      "duration": 2.352,
+      "meanDb": -27.6,
+      "peakDb": -7.2,
+      "sha256": "b3d32178afba8479b6c9848e24124e90a7c248f0c5d93f4ccef75da99c35ca06"
+    },
+    {
+      "word": "better",
+      "duration": 1.2,
+      "meanDb": -27.6,
+      "peakDb": -6.9,
+      "sha256": "e0f2989e6eec7f070c80d04ed7a02683155f785374884f6e76a0325eb2c33329"
+    },
+    {
+      "word": "knew",
+      "duration": 0.864,
+      "meanDb": -22.8,
+      "peakDb": -11.3,
+      "sha256": "36191387429404d1e5a2d7205f20d7b3cf5cec38ba68e55dda4e16ebeb7f1fc0"
+    },
+    {
+      "word": "thank",
+      "duration": 1.248,
+      "meanDb": -28.8,
+      "peakDb": -8.5,
+      "sha256": "61d1aae392fab986e1366783f733ada90d218deee0ad391d98c3800d12da56da"
+    },
+    {
+      "word": "once",
+      "duration": 1.32,
+      "meanDb": -27.6,
+      "peakDb": -9.2,
+      "sha256": "9cb3dd056e4f2c5dabc882af1136be8c33b7981c7288e43b72820bc9d4bbbc22"
+    },
+    {
+      "word": "room",
+      "duration": 1.248,
+      "meanDb": -27.4,
+      "peakDb": -10.3,
+      "sha256": "cfbaae5be069c3fb6814bb4e34a9ea018e4f50b949bb31332c9fdbc93102c5ab"
+    },
+    {
+      "word": "place",
+      "duration": 2.568,
+      "meanDb": -31.4,
+      "peakDb": -9.6,
+      "sha256": "b634fde6ff555aea566056b52735a51bae75b10eb98cac474766871c9b565201"
+    },
+    {
+      "word": "bear",
+      "duration": 0.768,
+      "meanDb": -22.5,
+      "peakDb": -5,
+      "sha256": "e329347407afae66efd1e43f55dbdbd9b1de7685ae2d1d5313cf9f09599d4d7c"
+    },
+    {
+      "word": "another",
+      "duration": 1.104,
+      "meanDb": -24.8,
+      "peakDb": -9.5,
+      "sha256": "08f5e1250b50b8e3733a994e49455a932f90f7f19c2bacc7337090ef9636458c"
+    },
+    {
+      "word": "hear",
+      "duration": 1.248,
+      "meanDb": -27.3,
+      "peakDb": -10.9,
+      "sha256": "460d4b975c1d67936c464d617af9443766af6fc1190ec7959a0d9042d76f3a4e"
+    },
+    {
+      "word": "these",
+      "duration": 1.248,
+      "meanDb": -28.2,
+      "peakDb": -11.1,
+      "sha256": "b69a24e95c8ca421d6a8f22fda30c3f36eb01386fd070dc94e37164bfa781026"
+    },
+    {
+      "word": "sleep",
+      "duration": 1.104,
+      "meanDb": -26.8,
+      "peakDb": -10.8,
+      "sha256": "3c8dacd924dce6ffc0dd49b4ee266734de4aa9c95231458b2daa856ea59eda3c"
+    },
+    {
+      "word": "ran",
+      "duration": 1.848,
+      "meanDb": -26.5,
+      "peakDb": -9,
+      "sha256": "b01d24292abcfa3d1c8adcc109f67cdbc6d1882be8442153cfe95673984a84ed"
+    },
+    {
+      "word": "high",
+      "duration": 1.248,
+      "meanDb": -26.1,
+      "peakDb": -8.2,
+      "sha256": "5d743d810525437f671d88ad9b04f9bf6a691301e9bb8459f0ee4870fd53c017"
+    },
+    {
+      "word": "try",
+      "duration": 0.768,
+      "meanDb": -24.7,
+      "peakDb": -7.2,
+      "sha256": "ebab9298bfeb89cead4f75c30880a82b879de6c4bedf074718ba823be4ba3b9e"
+    },
+    {
+      "word": "keep",
+      "duration": 0.768,
+      "meanDb": -25.4,
+      "peakDb": -8.5,
+      "sha256": "3c67ea59976cd81fce6dc25ebf26d9543251222d8d86ca6f236f25dec7868cc8"
+    },
+    {
+      "word": "most",
+      "duration": 1.656,
+      "meanDb": -26.5,
+      "peakDb": -8.5,
+      "sha256": "f5c1358eb7b16a60b01f5f533deb4560f2712ce3fb6303212e38358095b7d16d"
+    },
+    {
+      "word": "those",
+      "duration": 1.2,
+      "meanDb": -23.6,
+      "peakDb": -3.8,
+      "sha256": "46f51961b40def05e2d76b0d2fddd1c93ffb74a21a1080e73126f2280f684720"
+    },
+    {
+      "word": "wasn't",
+      "duration": 0.864,
+      "meanDb": -23.6,
+      "peakDb": -3.9,
+      "sha256": "9df627ce6a81a700e2813411aa983c4125466b7c8786723575380193d7d8e20b"
+    },
+    {
+      "word": "any",
+      "duration": 0.552,
+      "meanDb": -22,
+      "peakDb": -10.7,
+      "sha256": "383d1cb932dd99dd6020219e40bb5c88ba6dce55c747873b3a99a7a50aafe365"
+    },
+    {
+      "word": "sky",
+      "duration": 1.152,
+      "meanDb": -25.4,
+      "peakDb": -5.6,
+      "sha256": "b51c3847aded2f2984ad9e5aa05d2a53d35bbfcbb61a8bbec95ccd52a81efa49"
+    },
+    {
+      "word": "boy",
+      "duration": 1.104,
+      "meanDb": -22,
+      "peakDb": -4.8,
+      "sha256": "d338f69988bf4e7cff25a3f2063f3b4e554751d98ba6fe835427912afbe001f2"
+    },
+    {
+      "word": "face",
+      "duration": 0.96,
+      "meanDb": -27.3,
+      "peakDb": -7.5,
+      "sha256": "ec90a9d5766e55f841856aacb6bd23933a8ed9a6612b2e6d7ddab5b0b008dcd3"
+    },
+    {
+      "word": "heard",
+      "duration": 0.96,
+      "meanDb": -24.7,
+      "peakDb": -7.1,
+      "sha256": "2ccfdb32bccbc603645f8b1b94783b36ecbc31934235d2d25837ee5168514bcf"
+    },
+    {
+      "word": "book",
+      "duration": 1.248,
+      "meanDb": -22.3,
+      "peakDb": -1,
+      "sha256": "7a061a71898dcf307b75da1437c57ef0f91311b22b86a0e198144fb74ffa4bb2"
+    },
+    {
+      "word": "snow",
+      "duration": 1.368,
+      "meanDb": -27.3,
+      "peakDb": -11,
+      "sha256": "4aa034c85e5579be9b946b75109a8d7a4fd3bf30c54a5f16bddfc853b5073738"
+    },
+    {
+      "word": "heart",
+      "duration": 1.152,
+      "meanDb": -29.8,
+      "peakDb": -7.8,
+      "sha256": "5c0d9d47cf75cc730e7895a11881b40d358707b57d4e641007702bb8b2019127"
+    },
+    {
+      "word": "being",
+      "duration": 0.864,
+      "meanDb": -26.2,
+      "peakDb": -10.9,
+      "sha256": "16c25d71b240175ee0620cc5ed779a54ce0f8f9a3b9d8634cdc5df3620729b22"
+    },
+    {
+      "word": "white",
+      "duration": 1.104,
+      "meanDb": -29.4,
+      "peakDb": -8.8,
+      "sha256": "661669b668f8716aaa3d1f3e88ce027c2c81d80481a2c40c0260bd95173b1a1f"
+    },
+    {
+      "word": "sun",
+      "duration": 1.056,
+      "meanDb": -26.4,
+      "peakDb": -9.4,
+      "sha256": "359d3ec484bbc5ea1ae279d36b34b50ce9f24e481a63d89f65565cdd6903aca1"
+    },
+    {
+      "word": "nice",
+      "duration": 2.208,
+      "meanDb": -26.8,
+      "peakDb": -9.4,
+      "sha256": "18a7bd6b4224aecdca06d57b3b913de2d0ebde966a42c514faeb3b6c40d68df1"
+    },
+    {
+      "word": "okay",
+      "duration": 0.816,
+      "meanDb": -27.4,
+      "peakDb": -8.8,
+      "sha256": "b11ed6e2badf4996124b62a2842fd305b3ab88ea8ebfda5b22a185d65a7b1261"
+    },
+    {
+      "word": "cried",
+      "duration": 1.608,
+      "meanDb": -25.7,
+      "peakDb": -4.2,
+      "sha256": "9c5e183db9a75f8777943d89fa09f6bead09a27121dfda0099dfb0986ab70e43"
+    },
+    {
+      "word": "sometimes",
+      "duration": 1.32,
+      "meanDb": -27.5,
+      "peakDb": -11.5,
+      "sha256": "65137af0857400b5cc95ef85403fe4b5ece6cbff974a59013eb0f2215541d1f3"
+    },
+    {
+      "word": "four",
+      "duration": 1.056,
+      "meanDb": -25.9,
+      "peakDb": -7.5,
+      "sha256": "515e65849a014bcdfd2b32da81b97dd1627d741498f78720815b34415754c3a6"
+    },
+    {
+      "word": "own",
+      "duration": 1.248,
+      "meanDb": -25.3,
+      "peakDb": -7.8,
+      "sha256": "57f95d6e6f760b794fd6d9bb30e1bb0790132cad0d5ec4f1f60adf8478306ee8"
+    },
+    {
+      "word": "couldn't",
+      "duration": 1.104,
+      "meanDb": -25.9,
+      "peakDb": -7.6,
+      "sha256": "ac6799b0800a485e09662dade60aae814d3df02b217d886439721872c0869ef9"
+    },
+    {
+      "word": "name",
+      "duration": 1.2,
+      "meanDb": -25.4,
+      "peakDb": -11.6,
+      "sha256": "c174e17991fc5200139a8e2d69e6e7d6ac2a70b8ec60314a9dc59cc7272b809a"
+    },
+    {
+      "word": "favorite",
+      "duration": 1.056,
+      "meanDb": -22.6,
+      "peakDb": -6.9,
+      "sha256": "91da6cbe29ba2989a6bbd1846d98bcdf1953446348d2347d7843460a21b86628"
+    },
+    {
+      "word": "fly",
+      "duration": 1.104,
+      "meanDb": -28.2,
+      "peakDb": -9.2,
+      "sha256": "e78045d4e37654d45c1fc365954350f01d82ea06925d089bf8d4e35860f20f74"
+    },
+    {
+      "word": "dog",
+      "duration": 1.416,
+      "meanDb": -26.4,
+      "peakDb": -7.7,
+      "sha256": "fc7fbe70b9471a7feb4f8b9dbf2dd398dd18e5330e4ebae2f66f3fa7dd829bbc"
+    },
+    {
+      "word": "year",
+      "duration": 1.8,
+      "meanDb": -26.2,
+      "peakDb": -9.6,
+      "sha256": "da7e4903e54e99c3fa17985584cf4754114b8b0df5cca52988e35f4525e38204"
+    },
+    {
+      "word": "might",
+      "duration": 0.864,
+      "meanDb": -23.7,
+      "peakDb": -8.1,
+      "sha256": "996d5ddcf66c74931c9466afd06ec7853a7d521c5515ca19a3781f73a6b6d8d5"
+    },
+    {
+      "word": "feet",
+      "duration": 1.056,
+      "meanDb": -28.3,
+      "peakDb": -10.3,
+      "sha256": "c84302d70c11c70967e298397eec509351b7bd9f18b9a3e8ffddb54c1ca293db"
+    },
+    {
+      "word": "baby",
+      "duration": 1.512,
+      "meanDb": -24.6,
+      "peakDb": -10.1,
+      "sha256": "62d763c7c5e53064a22de6f4989d7ff9a5c64be191228821526357edbede37b9"
+    },
+    {
+      "word": "outside",
+      "duration": 1.32,
+      "meanDb": -25.5,
+      "peakDb": -8.4,
+      "sha256": "594bb627fd4f5a65c4acc63cec3041ad039c119502b67cbfe8aa59c19c1e9661"
+    },
+    {
+      "word": "mother",
+      "duration": 1.056,
+      "meanDb": -23.9,
+      "peakDb": -7,
+      "sha256": "f609e907eb9c3e1e47e43e3e22837d396c7c98eddc78bd128014bfa34ece8849"
+    },
+    {
+      "word": "run",
+      "duration": 2.304,
+      "meanDb": -29.1,
+      "peakDb": -8.8,
+      "sha256": "cf8a8f841a8025230172d3c0d73f4ea2174bc8fe6877e2f09da8c209665d5f6e"
+    },
+    {
+      "word": "turn",
+      "duration": 1.368,
+      "meanDb": -26,
+      "peakDb": -8.6,
+      "sha256": "92f6c0b87f9cd6b11d8d87de30e7cf185c6e0e0581a4a5fb3a083730111215a9"
+    },
+    {
+      "word": "everything",
+      "duration": 2.52,
+      "meanDb": -28.3,
+      "peakDb": -9.8,
+      "sha256": "25ed610deefc8fd3617189d00667ce97a20721a88af1b1e96f0e573fe2993ad2"
+    },
+    {
+      "word": "also",
+      "duration": 1.104,
+      "meanDb": -25.3,
+      "peakDb": -7.2,
+      "sha256": "2965c97784de77ee910783a364f516db2d99a8e52a357863f8e277e759142bb4"
+    },
+    {
+      "word": "i've",
+      "duration": 0.816,
+      "meanDb": -25.7,
+      "peakDb": -8.2,
+      "sha256": "c58d082a6030bdfd56bbfcff069d4313e8dbd5a4dbc06b84d2842e06ba14a421"
+    },
+    {
+      "word": "looks",
+      "duration": 1.008,
+      "meanDb": -25.5,
+      "peakDb": -6.7,
+      "sha256": "4364cbc64ba2d5d40ce169102ba5315e07193ecbce54b61ba5a023af0f2555ce"
+    },
+    {
+      "word": "makes",
+      "duration": 1.248,
+      "meanDb": -27.8,
+      "peakDb": -14.2,
+      "sha256": "912bf2a5549ebd6238cd4a1b4d7533ab607a2baf946a78c3528a529d62dcf6f6"
+    },
+    {
+      "word": "bad",
+      "duration": 1.056,
+      "meanDb": -25.3,
+      "peakDb": -6.3,
+      "sha256": "51f56484f53d35e26a72c9c4174ac92a7f8423dc6fc6d6ee166757029aa78b60"
+    },
+    {
+      "word": "under",
+      "duration": 1.152,
+      "meanDb": -27.5,
+      "peakDb": -11.3,
+      "sha256": "f4f1edeb399b4e78310e9f9f0efdce745aa2d997edbc834a0b96acfe88da373b"
+    },
+    {
+      "word": "tried",
+      "duration": 1.152,
+      "meanDb": -29.2,
+      "peakDb": -8.9,
+      "sha256": "59d7c72bc5e3202afb1f9a0294b2e7618cc0e20674e9dbd4eac042a76eebd4fa"
+    },
+    {
+      "word": "light",
+      "duration": 1.152,
+      "meanDb": -29,
+      "peakDb": -14.1,
+      "sha256": "80eff97940cfac7df8fabf69e989edd53647a2a2b46ff80045a2e37469dc8f52"
+    },
+    {
+      "word": "special",
+      "duration": 0.96,
+      "meanDb": -27.4,
+      "peakDb": -11.1,
+      "sha256": "9a74b1183612e8a919c9138c2b92b667a1f2236005da91e43d38ec08c2c74945"
+    },
+    {
+      "word": "stay",
+      "duration": 1.512,
+      "meanDb": -29.3,
+      "peakDb": -11.2,
+      "sha256": "0356ee751425ed6e9c542b71a7ecd032da880d28c3b3b21f8ec4288a2d079f7a"
+    },
+    {
+      "word": "end",
+      "duration": 1.416,
+      "meanDb": -27.6,
+      "peakDb": -12.3,
+      "sha256": "31fc906d59b646dc5633df36bbf48afa73407e6fafb3b58c5167f4291f2c6245"
+    },
+    {
+      "word": "story",
+      "duration": 1.368,
+      "meanDb": -27.3,
+      "peakDb": -12,
+      "sha256": "f512523b6428496886c9c3342dcd679a1fc7561ad3534099b251993e5ccb28ad"
+    },
+    {
+      "word": "man",
+      "duration": 0.768,
+      "meanDb": -23.6,
+      "peakDb": -8.5,
+      "sha256": "03836c875156032ed23e713caedbc98424a46f0b8eea89d38b8174921c79c4ee"
+    },
+    {
+      "word": "began",
+      "duration": 1.008,
+      "meanDb": -25.3,
+      "peakDb": -8.9,
+      "sha256": "8ec13e07f136e25c8031b5778f6d495333114e1e5bdca19cbbb3d060156e21a0"
+    },
+    {
+      "word": "along",
+      "duration": 0.864,
+      "meanDb": -23.1,
+      "peakDb": -6.9,
+      "sha256": "be9c71af776256b5f47f9474949c28fa047efd53c3cb5475f3d104c858fd68e2"
+    },
+    {
+      "word": "looking",
+      "duration": 1.056,
+      "meanDb": -23.2,
+      "peakDb": -6.4,
+      "sha256": "5115cd16d26a2ffcd8dd8ac2ff6531e29d5a023e2cd22b0d430e7e0c9300f782"
+    },
+    {
+      "word": "job",
+      "duration": 1.104,
+      "meanDb": -25.1,
+      "peakDb": -6.7,
+      "sha256": "9eb2ae98bccbd738765b37bb1661352ce48f63f2e746a357843d3db621b84fb8"
+    },
+    {
+      "word": "days",
+      "duration": 1.368,
+      "meanDb": -26.4,
+      "peakDb": -8.8,
+      "sha256": "f0a32bd6641b0266d2ef21a813052d73992335779264c95cbb7da4b7ae6e8b84"
+    },
+    {
+      "word": "ask",
+      "duration": 2.664,
+      "meanDb": -32.1,
+      "peakDb": -7.9,
+      "sha256": "803dde42018c84fb676d41779a2bec8a9291ab2f52a5ac622dee40fab2f16851"
+    },
+    {
+      "word": "top",
+      "duration": 1.752,
+      "meanDb": -30.9,
+      "peakDb": -7.1,
+      "sha256": "427f378c50b5110beeb0332851327def5a7307f526ed7fd3c20aa471201f28b7"
+    },
+    {
+      "word": "you'll",
+      "duration": 1.248,
+      "meanDb": -24.6,
+      "peakDb": -11,
+      "sha256": "83a2eb298c0159fcf5bf5f825f8f3460ea79c770e17c18610d01cbc1ff48f11c"
+    },
+    {
+      "word": "beautiful",
+      "duration": 1.512,
+      "meanDb": -27,
+      "peakDb": -13.1,
+      "sha256": "8dbf0ec0b559a48abe0fa634afa95b457db6984f402a000b3ed874503c9bc389"
+    },
+    {
+      "word": "life",
+      "duration": 1.152,
+      "meanDb": -26.9,
+      "peakDb": -7.5,
+      "sha256": "e47479a6a0c772c244ba4714cd7c37d36d0c7db849ad692fed503dec0749c233"
+    },
+    {
+      "word": "what's",
+      "duration": 0.96,
+      "meanDb": -27,
+      "peakDb": -6.5,
+      "sha256": "4e5ac2a3dfd4bb2b0071f32d80d63db14e545867b8420ecf92221419c3c3b391"
+    },
+    {
+      "word": "which",
+      "duration": 0.864,
+      "meanDb": -22.7,
+      "peakDb": -4.3,
+      "sha256": "870fae8c8b4ced0533cb5ed9cdb51b06cb2b55482c95f6da2c51e2e7c4e42ac7"
+    },
+    {
+      "word": "children",
+      "duration": 1.104,
+      "meanDb": -27.2,
+      "peakDb": -11.4,
+      "sha256": "554ff9281c43feaa2a6a2a5e9f2da9e0f5ca4541488ddc5ed1db1d76106ef345"
+    },
+    {
+      "word": "mr",
+      "duration": 1.32,
+      "meanDb": -26.7,
+      "peakDb": -10.6,
+      "sha256": "4257a6858ca7dde0df3b6a7ded9f998b0ad5fd666d264b9f8107f4055221cb18"
+    },
+    {
+      "word": "kind",
+      "duration": 1.104,
+      "meanDb": -26.6,
+      "peakDb": -10.1,
+      "sha256": "5f56c715a043c709af0846e1d34b75c768d3067ad3d5d3938f599f3fdd9ff1be"
+    },
+    {
+      "word": "full",
+      "duration": 1.152,
+      "meanDb": -24.6,
+      "peakDb": -9.3,
+      "sha256": "57d0370ed2618da8d739089eb271e380d9510feb261143c064b014ffc5507838"
+    },
+    {
+      "word": "felt",
+      "duration": 0.96,
+      "meanDb": -26.3,
+      "peakDb": -6.4,
+      "sha256": "ae826704e01d2389def6b3e9c71b4af8cc9a65cf3065d2e64625441e481a86d0"
+    },
+    {
+      "word": "read",
+      "duration": 1.104,
+      "meanDb": -25,
+      "peakDb": -9.7,
+      "sha256": "7901c6c00e50a2159532a178d863ad32ce953ffd8910d0d6cc04ad5bff5e9233"
+    },
+    {
+      "word": "done",
+      "duration": 1.152,
+      "meanDb": -26.8,
+      "peakDb": -6.9,
+      "sha256": "013cb27386c2899eec2eaec708cb853959f5254e6028ba2640fed301ed906272"
+    },
+    {
+      "word": "fast",
+      "duration": 1.008,
+      "meanDb": -25.9,
+      "peakDb": -4.3,
+      "sha256": "c9bb44ac8fa6a12d221ae42ce61f2962488222ea345809e6153c7a6f720f70ac"
+    }
+  ]
+}

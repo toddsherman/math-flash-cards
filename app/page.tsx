@@ -1,9 +1,22 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState, type TouchEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
 import { recordDiagnostic, subscribeDiagnostics, diagnosticsText, type DiagnosticEntry } from "@/lib/diagnostics";
 import { FeedbackAudio, configureAudioSession } from "@/lib/feedback-audio";
 import { DEFAULT_RANGE, RANGES, numberWord, shuffled } from "@/lib/numbers";
+import { WORD_GROUPS, ALL_WORDS, DEFAULT_WORD_GROUPS, selectedWords, validWordGroups, displayWord } from "@/lib/words";
+import wordAudio from "@/lib/word-audio.json";
+
+type Card = number | string;
+type Deck = { deck: Card[]; index: number };
+type Feed = "numbers" | "words";
+type PracticeSet = { numbers: Card[]; ordered?: boolean };
+function cardText(value: Card) { return typeof value === "number" ? numberWord(value) : displayWord(value); }
+function freshDeck(range: PracticeSet): Deck {
+  const first = nextBatch(range);
+  const before = nextBatch(range, first[0], true);
+  return { deck: [...before, ...first], index: before.length };
+}
 
 // Opt-in, local-only diagnostics: /math?debugSwipe=1, then window.__mathSwipeLog.
 function logSwipe(event: string, details: Record<string, number | string>) {
@@ -22,7 +35,7 @@ function SpeakerIcon() {
 }
 
 // Ordered practice keeps confusing groups together; other ranges shuffle without repeats at the join.
-function nextBatch(range: { numbers: number[]; ordered?: boolean }, neighbor?: number, prepend = false) {
+function nextBatch(range: PracticeSet, neighbor?: Card, prepend = false) {
   if (range.ordered) return [...range.numbers];
   const batch = shuffled(range.numbers);
   const edge = prepend ? batch.length - 1 : 0;
@@ -36,12 +49,18 @@ function nextBatch(range: { numbers: number[]; ordered?: boolean }, neighbor?: n
 }
 
 export default function MathPractice() {
-  const [cards, setCards] = useState<{ deck: number[]; index: number }>({ deck: [], index: 0 });
+  const [cards, setCards] = useState<Deck>({ deck: [], index: 0 });
   const cardsRef = useRef(cards);
   const [rangeId, setRangeId] = useState(DEFAULT_RANGE.id);
-  const rangeRef = useRef(DEFAULT_RANGE);
+  const rangeRef = useRef<PracticeSet>(DEFAULT_RANGE);
+  const [mode, setMode] = useState<Feed>("numbers");
+  const modeRef = useRef<Feed>("numbers");
+  const [wordGroups, setWordGroups] = useState<string[]>(DEFAULT_WORD_GROUPS);
+  const wordGroupsRef = useRef<string[]>(DEFAULT_WORD_GROUPS);
+  const savedDecks = useRef<Partial<Record<Feed, Deck>>>({});
   const settings = useRef<HTMLDialogElement | null>(null);
-  const gear = useRef<HTMLButtonElement | null>(null);
+  const numberTab = useRef<HTMLButtonElement | null>(null);
+  const wordTab = useRef<HTMLButtonElement | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const feed = useRef<HTMLDivElement | null>(null);
   const touching = useRef(false);
@@ -81,7 +100,7 @@ export default function MathPractice() {
   }
 
   const current = cards.deck[cards.index];
-  const word = current === undefined ? "" : numberWord(current);
+  const word = current === undefined ? "" : cardText(current);
 
   useEffect(() => {
     let range = DEFAULT_RANGE;
@@ -91,11 +110,14 @@ export default function MathPractice() {
       range = RANGES.find(r => r.id === id) ?? range;
       if (saved === "11-29") localStorage.setItem("math-number-range", range.id);
     } catch {}
+    try {
+      const groups = validWordGroups(JSON.parse(localStorage.getItem("math-word-groups") ?? "null"));
+      wordGroupsRef.current = groups;
+      setWordGroups(groups);
+    } catch {}
     rangeRef.current = range;
     setRangeId(range.id);
-    const first = nextBatch(range);
-    const before = nextBatch(range, first[0], true);
-    const initial = { deck: [...before, ...first], index: before.length };
+    const initial = freshDeck(range);
     cardsRef.current = initial;
     setCards(initial);
   }, []);
@@ -134,7 +156,7 @@ export default function MathPractice() {
   }, []);
 
   function playFeedback(correct: boolean) {
-    recordDiagnostic(`${correct ? "Correct" : "Incorrect"} button triggered · number ${cardsRef.current.deck[cardsRef.current.index]}`);
+    recordDiagnostic(`${correct ? "Correct" : "Incorrect"} button triggered · card ${cardsRef.current.deck[cardsRef.current.index]}`);
     stopAudio();
     setError("");
     const request = playback.current;
@@ -170,14 +192,14 @@ export default function MathPractice() {
   function pronounce() {
     const player = audio.current;
     if (!player || current === undefined) return;
-    recordDiagnostic(`Speaker button triggered · number ${current} · readyState ${player.readyState}`);
+    recordDiagnostic(`Speaker button triggered · card ${current} · readyState ${player.readyState}`);
     stopAudio();
     setError("");
     const request = playback.current;
     configureAudioSession();
     const fail = (failure: unknown) => {
       if (request !== playback.current) return;
-      recordDiagnostic(`Number playback failed: ${String(failure)} · readyState ${player.readyState} · networkState ${player.networkState}`);
+      recordDiagnostic(`Speech playback failed: ${String(failure)} · readyState ${player.readyState} · networkState ${player.networkState}`);
       stopAudio();
       reloadSpeech.current = true;
       setError("Audio could not play. Tap to retry.");
@@ -306,24 +328,63 @@ export default function MathPractice() {
     scrollToPage(page);
   }
 
+  function resetInteraction() {
+    stopAudio(); setError(""); touching.current = false;
+    gesture.current = null; targetPage.current = null; buttonTouch.current = null;
+    feedbackPressed.current = false; speakerPressed.current = false;
+    if (settling.current) clearTimeout(settling.current);
+  }
+
+  function setDeck(next: Deck) { cardsRef.current = next; setCards(next); }
+
+  function selectFeed(next: Feed) {
+    resetInteraction();
+    if (next === modeRef.current) {
+      settings.current?.showModal(); setSettingsOpen(true);
+      return;
+    }
+    savedDecks.current[modeRef.current] = cardsRef.current;
+    modeRef.current = next;
+    setMode(next);
+    const range: PracticeSet = next === "numbers"
+      ? RANGES.find(range => range.id === rangeId) ?? DEFAULT_RANGE
+      : { numbers: selectedWords(wordGroupsRef.current) };
+    rangeRef.current = range;
+    setDeck(savedDecks.current[next] ?? freshDeck(range));
+    recordDiagnostic(`Feed selected: ${next}`);
+  }
+
   function chooseRange(id: string) {
     const range = RANGES.find(r => r.id === id);
     if (!range) return;
-    stopAudio(); setError(""); touching.current = false;
-    gesture.current = null; targetPage.current = null;
-    if (settling.current) clearTimeout(settling.current);
+    resetInteraction();
     rangeRef.current = range;
     recordDiagnostic(`Range selected: ${range.label}`);
     setRangeId(id);
-    const first = nextBatch(range);
-    const before = nextBatch(range, first[0], true);
-    const next = { deck: [...before, ...first], index: before.length };
-    cardsRef.current = next; setCards(next);
+    setDeck(freshDeck(range));
     try { localStorage.setItem("math-number-range", id); } catch {}
     settings.current?.close();
   }
 
-  return <main className="app" tabIndex={0} aria-label="Number flashcards. Swipe up for next, down for previous, or use the arrow keys."
+  function toggleWordGroup(id: string) {
+    const previous = wordGroupsRef.current;
+    let next: string[];
+    if (id === "all") next = ["all"];
+    else if (previous.includes("all")) next = [id];
+    else if (previous.includes(id)) next = previous.filter(group => group !== id);
+    else next = [...previous, id];
+    if (!next.length) return;
+    resetInteraction();
+    wordGroupsRef.current = next;
+    setWordGroups(next);
+    const range = { numbers: selectedWords(next) };
+    rangeRef.current = range;
+    setDeck(freshDeck(range));
+    try { localStorage.setItem("math-word-groups", JSON.stringify(next)); } catch {}
+    recordDiagnostic(`Word groups selected: ${next.join(", ")} · ${range.numbers.length} words`);
+  }
+
+  return <main className="app" tabIndex={0} aria-label="Flashcards. Swipe up for next, down for previous, or use the arrow keys."
         onPointerDownCapture={() => feedbackAudio.current?.unlock()}
         onTouchEndCapture={() => feedbackAudio.current?.unlock()}
         onKeyDownCapture={() => feedbackAudio.current?.unlock()}
@@ -334,27 +395,37 @@ export default function MathPractice() {
           }
         }}
         >
-        <button ref={gear} className="settings-toggle" aria-label="Number range settings" aria-haspopup="dialog" aria-expanded={settingsOpen} aria-controls="range-settings"
-          onClick={() => { stopAudio(); settings.current?.showModal(); setSettingsOpen(true); }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 3-.6 2.1-1.8 1L4.5 6 3 8.6l1.5 1.6v2L3 14l1.5 2.6 2.1-.3 1.8 1L9 20h3l.6-2.7 1.8-1 2.1.3L18 14l-1.5-1.8v-2L18 8.6 16.5 6l-2.1.1-1.8-1L12 3Z" transform="translate(1.5 .5)"/><circle cx="12" cy="12" r="3"/></svg>
-        </button>
+        <nav className="feed-tabs" aria-label="Practice feed">
+          <button ref={wordTab} aria-label="ABC words" aria-pressed={mode === "words"} aria-haspopup="dialog" aria-expanded={mode === "words" && settingsOpen} aria-controls="range-settings" onClick={() => selectFeed("words")}>ABC</button>
+          <button ref={numberTab} aria-label="123 numbers" aria-pressed={mode === "numbers"} aria-haspopup="dialog" aria-expanded={mode === "numbers" && settingsOpen} aria-controls="range-settings" onClick={() => selectFeed("numbers")}>123</button>
+        </nav>
         <dialog ref={settings} id="range-settings" className="settings-menu" aria-labelledby="range-title"
-          onClose={() => { setSettingsOpen(false); gear.current?.focus(); }}
+          onClose={() => { setSettingsOpen(false); (modeRef.current === "numbers" ? numberTab : wordTab).current?.focus(); }}
           onClick={event => {
             if (event.target !== event.currentTarget) return;
             const bounds = event.currentTarget.getBoundingClientRect();
             if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) event.currentTarget.close();
           }}>
-          <div className="settings-heading"><h2 id="range-title">Number range</h2><button className="settings-close" aria-label="Close settings" onClick={() => settings.current?.close()}>×</button></div>
-          <div className="range-options" role="group" aria-label="Number range">
+          <div className="settings-heading"><h2 id="range-title">{mode === "numbers" ? "Number range" : "Word groups"}</h2><button className="settings-close" aria-label="Close settings" onClick={() => settings.current?.close()}>×</button></div>
+          {mode === "numbers" ? <div className="range-options" role="group" aria-label="Number range">
             {RANGES.map(range => <button key={range.id} className="range-option" aria-pressed={rangeId === range.id} onClick={() => chooseRange(range.id)}>
               <span>{range.label}{range.description && <small>{range.description}</small>}</span><span aria-hidden="true">{rangeId === range.id ? "✓" : ""}</span>
             </button>)}
-          </div>
+          </div> : <>
+            <p className="menu-note">Choose one or more sets. Words always shuffle. Keep at least one set selected.</p>
+            <div className="range-options" role="group" aria-label="Word groups">
+              <button className="range-option" aria-pressed={wordGroups.includes("all")} onClick={() => toggleWordGroup("all")}><span>All {ALL_WORDS.length} words</span><span aria-hidden="true">{wordGroups.includes("all") ? "✓" : ""}</span></button>
+              {WORD_GROUPS.map((group, index) => <button key={group.id} className="range-option" aria-pressed={wordGroups.includes(group.id)} onClick={() => toggleWordGroup(group.id)}>
+                <span>{index + 1}. {group.label}<small>{group.words.length} words · {group.words.map(displayWord).join(", ")}</small>{wordGroups.includes(group.id) && <small className="group-tip">{group.note}</small>}</span>
+                <span aria-hidden="true">{wordGroups.includes(group.id) ? "✓" : ""}</span>
+              </button>)}
+            </div>
+            <details className="practice-notes"><summary>About word practice</summary><p>Start with familiar letter sounds, mix in a few tricky words, and revisit sets on different days. Try reading before tapping the speaker. Use these cards alongside phonics instruction and shared reading.</p><p>The first 300 Children’s Picture Book high-frequency words, grouped for practice. These groups are an app adaptation, not a validated teaching sequence.</p><a href="https://doi.org/10.1002/trtr.2309" target="_blank" rel="noreferrer">Word-list research</a></details>
+          </>}
           <button className="diagnostics-toggle" role="switch" aria-checked={showDiagnostics} onClick={toggleDiagnostics}>Diagnostics {showDiagnostics ? "on" : "off"}</button>
           <p className="voice-credit">AI-generated voice · OpenAI Marin</p>
         </dialog>
-        <div ref={feed} className="card-feed" aria-label="Swipe through numbers"
+        <div ref={feed} className="card-feed" aria-label={mode === "numbers" ? "Swipe through numbers" : "Swipe through words"}
           onTouchStart={startTouch}
           onTouchEnd={event => endTouch(event)}
           onTouchCancel={event => endTouch(event, true)}
@@ -368,9 +439,11 @@ export default function MathPractice() {
             const position = cards.index + offset;
             const value = cards.deck[position];
             const active = offset === 0;
-            return <section className="flashcard" key={`${rangeId}-${position}`} aria-hidden={!active} inert={!active}>
+            return <section className="flashcard" key={`${mode}-${rangeId}-${position}`} aria-hidden={!active} inert={!active}>
               <div className="card-face">
-                <div className="number-wrap"><h2 className="number">{value}</h2><span className="number-word">{numberWord(value)}</span></div>
+                <div className="number-wrap">{typeof value === "number"
+                  ? <><h2 className="number">{value}</h2><span className="number-word">{numberWord(value)}</span></>
+                  : <h2 className="sight-word" style={{ "--word-length": Math.max(3, displayWord(value).length) } as CSSProperties}>{displayWord(value)}</h2>}</div>
                 <div className="card-actions">
                 <button className="feedback correct" aria-label="Correct" tabIndex={active ? 0 : -1} onPointerDown={event => feedbackPointerDown(event, true)} onPointerUp={event => soundPointerUp(event, true)} onPointerCancel={() => { feedbackPressed.current = false; buttonTouch.current = null; }} onClick={event => feedbackClick(event, true)}>
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>
@@ -379,7 +452,7 @@ export default function MathPractice() {
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
                 </button>
                 <button className={`hear ${active && speaking ? "speaking" : ""} ${active && error ? "audio-failed" : ""}`}
-                  aria-label={active && error ? error : `Hear ${numberWord(value)}`} tabIndex={active ? 0 : -1}
+                  aria-label={active && error ? error : `Hear ${cardText(value)}`} tabIndex={active ? 0 : -1}
                   onPointerDown={event => { if (event.isPrimary && event.button === 0) { speakerPressed.current = false; buttonTouch.current = { x: event.clientX, y: event.clientY }; } }}
                   onPointerUp={event => soundPointerUp(event)}
                   onPointerCancel={() => { speakerPressed.current = false; buttonTouch.current = null; }}
@@ -399,11 +472,11 @@ export default function MathPractice() {
           </details>
         </aside>}
         <span className="sr-only" aria-live="polite" aria-atomic="true">{word}</span>
-        <audio ref={audio} src={current === undefined ? undefined : `/math/audio/openai-marin-eea49933a200/${current}.mp3`} preload="auto"
-          onPlaying={() => { setSpeaking(true); recordDiagnostic(`Number ${current}: playing`); }} onEnded={() => { setSpeaking(false); recordDiagnostic(`Number ${current}: finished`); }} onPause={() => { setSpeaking(false); recordDiagnostic("Number audio: paused"); }}
-          onWaiting={() => recordDiagnostic("Number audio: buffering")}
-          onError={() => { setSpeaking(false); recordDiagnostic(`Number audio: load failed (code ${audio.current?.error?.code ?? "unknown"})`); setError("Audio could not load. Tap to retry."); }} />
+        <audio ref={audio} src={current === undefined ? undefined : typeof current === "number" ? `/math/audio/openai-marin-eea49933a200/${current}.mp3` : `/math/${wordAudio.directory}/${encodeURIComponent(current)}.mp3`} preload="auto"
+          onPlaying={() => { setSpeaking(true); recordDiagnostic(`Card ${current}: playing`); }} onEnded={() => { setSpeaking(false); recordDiagnostic(`Card ${current}: finished`); }} onPause={() => { setSpeaking(false); recordDiagnostic("Speech audio: paused"); }}
+          onWaiting={() => recordDiagnostic("Speech audio: buffering")}
+          onError={() => { setSpeaking(false); recordDiagnostic(`Speech audio: load failed (code ${audio.current?.error?.code ?? "unknown"})`); setError("Audio could not load. Tap to retry."); }} />
         {error && <p className="audio-error" role="status">{error}</p>}
-        <nav className="sr-only" aria-label="Flashcard navigation"><button onClick={() => move(-1)} tabIndex={-1}>Previous number</button><button onClick={() => move(1)} tabIndex={-1}>Next number</button></nav>
+        <nav className="sr-only" aria-label="Flashcard navigation"><button onClick={() => move(-1)} tabIndex={-1}>Previous card</button><button onClick={() => move(1)} tabIndex={-1}>Next card</button></nav>
     </main>;
 }

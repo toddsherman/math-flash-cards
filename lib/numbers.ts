@@ -21,7 +21,7 @@ export function numberWord(n: number): string {
   if (n < 1000) return `${small[Math.floor(n / 100)]} hundred${n % 100 ? ` ${numberWord(n % 100)}` : ""}`;
   return String(n);
 }
-export function shuffled(values: number[]): number[] {
+export function shuffled<T>(values: T[]): T[] {
   const result = [...values];
   for (let i = result.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));

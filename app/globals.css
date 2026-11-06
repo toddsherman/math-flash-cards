@@ -30,9 +30,7 @@ audio { display: none; }
 @media (max-height: 500px) { .number { font-size: 120px; } .number-word { margin-top: 10px; font-size: 28px; } .number-wrap { transform: none; } .hear, .feedback { width: 52px; height: 52px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
-.settings-toggle { position: fixed; z-index: 2; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: #647553; border-radius: 50%; cursor: pointer; touch-action: manipulation; }
-.settings-toggle:focus-visible, .settings-menu button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
-.settings-menu { position: fixed; top: max(62px, calc(env(safe-area-inset-top) + 50px)); right: max(16px, env(safe-area-inset-right)); left: auto; bottom: auto; margin: 0; width: min(280px, calc(100vw - 32px)); max-height: calc(100dvh - 88px); overflow-y: auto; border: 0; padding: 14px; border-radius: 20px; color: var(--ink); background: #f8f9f3; box-shadow: 0 12px 48px #263e3724; touch-action: pan-y; }
+.settings-menu { position: fixed; top: max(76px, calc(env(safe-area-inset-top) + 64px)); right: max(16px, env(safe-area-inset-right)); left: auto; bottom: auto; margin: 0; width: min(340px, calc(100vw - 32px)); max-height: calc(100dvh - 100px); overflow-y: auto; border: 0; padding: 14px; border-radius: 20px; color: var(--ink); background: #f8f9f3; box-shadow: 0 12px 48px #263e3724; touch-action: pan-y; }
 .settings-menu::backdrop { background: #263e3718; }
 .settings-heading { display: flex; align-items: center; justify-content: space-between; padding-left: 12px; }
 .settings-heading h2 { font-size: 15px; font-weight: 600; margin: 0; }
@@ -55,3 +53,16 @@ audio { display: none; }
 /* Sound controls are tap targets; swipe anywhere else on the card. */
 .card-actions, .card-actions button { touch-action: none; }
 .audio-error { position: fixed; left: 16px; right: 100px; bottom: max(24px, env(safe-area-inset-bottom)); margin: 0; color: #956843; font-size: 14px; }
+
+.feed-tabs { position: fixed; z-index: 2; top: max(12px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); display: flex; gap: 8px; padding: 4px; border-radius: 30px; background: #e9eddfed; }
+.feed-tabs button { min-width: 64px; min-height: 44px; border: 0; border-radius: 24px; background: transparent; color: #647553; font: 600 18px Arial, sans-serif; cursor: pointer; touch-action: manipulation; }
+.feed-tabs button[aria-pressed="true"] { background: var(--green); color: white; }
+.feed-tabs button:focus-visible, .settings-menu button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.sight-word { margin: 0; font-size: min(160px, calc((100vw - 56px) / var(--word-length) * 1.2)); font-weight: 600; line-height: 1.15; letter-spacing: -.035em; }
+.menu-note, .practice-notes { margin: 12px; font-size: 13px; line-height: 1.5; color: #647553; }
+.practice-notes summary { cursor: pointer; padding: 8px 0; }
+.practice-notes a { color: var(--green); }
+.range-option { gap: 8px; }
+.range-option .group-tip { color: var(--green); margin-top: 8px; }
+.diagnostics-panel { top: max(76px, calc(env(safe-area-inset-top) + 64px)); }
+@media (max-height: 500px) { .sight-word { font-size: min(100px, calc((100vw - 100px) / var(--word-length) * 1.4)); } }
